@@ -19,6 +19,7 @@ coord_axis * init_coord_axis(int width, axis this_axis) {
   coord_axis * ca = calloc(1, sizeof(struct COORD_AXIS_T));
   ca->width = width;
   ca->this_axis = this_axis;
+  ca->black = init_color(COL_MIN, COL_MIN, COL_MIN);
   return ca;
 }
 
@@ -29,17 +30,32 @@ coord_axis * init_coord_axis(int width, axis this_axis) {
  * @return
  */
 void write_ca_to_canvas(canvas * can, coord_axis * c_a) {
-  for(int i = 0; i < canvas->height; i++) {
-    for(int j = 0; j < canvas->width; j++) {
-      if(c_a->this_axis == X) {
-      } else if(c_a->this_axis == Y) {
+  for(int i = 0; i < can->height; i++) {
+    for(int j = 0; j < can->width; j++) {
+      if(c_a->this_axis == X && in_range_of_ca(c_a, can->height, i)) {
+        change_color(can->pixel_instance[i][j]->pix_color, c_a->black);
+      } else if(c_a->this_axis == Y && in_range_of_ca(c_a, can->width, j)) {
+        change_color(can->pixel_instance[i][j]->pix_color, c_a->black);
       }
     }
   }
 }
 
+/**
+ * This function determins if qty exists within the boundry of the axis
+ * @param          ca - the coordinate axis to test
+ * @param scalar_size - the size of the canvas to test (the reason I made this
+ * function is it doesn't matter the dimension (i.e. X, Y) the algorithm is the
+ * same)
+ * @param         qty - the quantity to test
+ * @return          1 - qty in boundry of axis
+ *                  0 - qty not in boundry of axis
+ */
 int in_range_of_ca(coord_axis * ca, int scalar_size, int qty) {
-  int mid = scalar_size
+  int mid = scalar_size / 2;
+  if(qty > mid - ca->width && qty < mid + ca->width)
+    return 1;
+  return 0;
 }
 
 /**
@@ -59,6 +75,9 @@ void coord_axis_dump_debug(coord_axis * ca) {
  * @return N/a
  */
 void free_coord_axis(coord_axis * ca) {
-  if(ca)
+  if(ca) {
+    if(ca->black)
+      free_color(ca->black);
     free(ca);
+  }
 }

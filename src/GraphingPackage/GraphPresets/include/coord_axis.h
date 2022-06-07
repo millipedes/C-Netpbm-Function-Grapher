@@ -6,14 +6,16 @@
  * @bug None known
  * @todo Nothing
  */
-#ifndef GRB_H
-#define GRB_H
+#ifndef CAX_H
+#define CAX_H
 
 #include <stdlib.h>
+#include"../../include/color.h"
 #include"../../GraphEncoding/include/canvas.h"
 #include "axis.h"
 
 typedef struct COORD_AXIS_T {
+  color * black;
   int width;
   axis this_axis;
 } coord_axis;

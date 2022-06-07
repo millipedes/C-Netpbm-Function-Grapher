@@ -10,5 +10,6 @@
 #define CONS_H
 
 #define COL_MAX 255 // Used to init colors to white
+#define COL_MIN 0   // Used to init colors to black
 
 #endif
