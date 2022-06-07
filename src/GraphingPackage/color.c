@@ -35,6 +35,18 @@ void color_dump_debug(color * col) {
 }
 
 /**
+ * This function chandes the color of dest to that of src
+ * @param dest - the color to be changed
+ * @param  src - the color to be changed to
+ * @return N/a
+ */
+void change_color(color * dest, color * src) {
+  dest->r = src->r;
+  dest->g = src->g;
+  dest->b = src->b;
+}
+
+/**
  * This function is basically just a free wrapper, but a part of the coding
  * style for this project
  * @param  col - the color to be freed

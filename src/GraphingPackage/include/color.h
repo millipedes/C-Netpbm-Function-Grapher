@@ -20,6 +20,7 @@ typedef struct COLOR_T {
 
 color * init_color(int r, int g, int b);
 void color_dump_debug(color * col);
+void change_color(color * dest, color * src);
 void free_color(color * col);
 
 #endif
