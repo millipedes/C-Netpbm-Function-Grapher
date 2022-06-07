@@ -1,0 +1,104 @@
+@startuml
+
+
+package GraphingPackage {
+  '' package FileIO {
+  ''   class file_io {
+  ''     {static} + write_graph_components(graph)
+  ''   }
+  '' }
+    class graph {
+       {field} + scale : graph_scale *
+       {field} + relations : relation **
+       {field} + relation_no : int
+    }
+
+  package "Graph Encoding" {
+    class canvas {
+       {field} + height : int
+       {field} + width : int
+       {field} + pixel_instance : pixel **
+      {method} + canvas * init_canvas(int, int)
+      {method} + void free_canvas(canvas *)
+    }
+
+    class pixel {
+       {field} + pix_color : color *
+       {field} + layer_no : int
+      {method} + pixel * init_pixel(color *, int)
+      {method} + void free_pixel(pixel *)
+    }
+  }
+
+  package GraphPresets {
+    class graph_scale {
+       {field} + tic_marks : axis_tic_marks *
+       {field} + axes : coord_axis *
+       {field} + border : graph_border *
+       {field} + axis_no : int
+      {method} + void write_gs_to_canvas(canvas *)
+    }
+
+    class axis_tic_marks {
+       {field} + mark_no : int
+       {field} + mark_thickness : int
+       {field} + mark_axis : axis
+      {method} + axis_tic_marks * axis_tic_marks(int, int, axis)
+      {method} + void write_atm_to_canvas(canvas *)
+      {method} + void free_axis_tic_marks(axis_tic_marks *)
+    }
+
+    class coord_axis {
+       {field} + width : int
+       {field} + this_axis : axis
+      {method} + coord_axis * init_coord_axis(axis, int)
+      {method} + void write_ca_to_canvas(canvas *)
+      {method} + void free_coord_axis(coord_axis *)
+    }
+
+    class graph_border {
+       {field} + width : int
+       {field} + b_color : color *
+      {method} + grpah_border * init_graph_border(color *, int)
+      {method} + void write_gb_to_canvas(canvas *)
+      {method} + void free_graph_border(border *)
+    }
+
+    enum axis {
+      X
+      Y
+    }
+  }
+
+  class relation {
+     {field} + relation(double *, int) : double
+    {method} + void write_rel_to_canvas(canvas *)
+  }
+
+  class color {
+     {field} + r : int
+     {field} + g : int
+     {field} + b : int
+    {method} + color * init_color(int, int, int)
+    {method} + void free_color(color *)
+  }
+}
+
+pixel        o--> color
+graph_border o--> color
+
+'' Main --> file_io
+Main --> graph
+
+graph "1" o--> "1" graph_scale
+graph "1" o--> "*" relation
+
+canvas "1" o--> "*" pixel
+
+axis_tic_marks      o-->       axis
+coord_axis          o-->       axis
+axis_tic_marks "2" <-up-o "1" graph_scale
+coord_axis     "2" <-up-o "1" graph_scale
+graph_border       <-up-o     graph_scale
+
+@enduml
