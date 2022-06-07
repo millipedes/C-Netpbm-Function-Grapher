@@ -28,9 +28,9 @@ pixel * init_pixel(color * pix_color, int layer_no) {
  * @return N/a
  */
 void pixel_dump_debug(pixel * pix) {
-  printf("Color:\n");
-  color_dump_debug(pix->pix_color);
+  printf("Pixel:\n");
   printf("Color Layer No: %d\n", pix->layer_no);
+  color_dump_debug(pix->pix_color);
   printf("--\n");
 }
 

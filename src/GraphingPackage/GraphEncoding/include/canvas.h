@@ -1,3 +1,11 @@
+/**
+ * @file canvas.h
+ * @brief this file contains the function definitions for canvas.c
+ * @author Matthew C. Lindeman
+ * @date June 07, 2022
+ * @bug None known
+ * @todo Nothing
+ */
 #ifndef CAN_H
 #define CAN_H
 
@@ -5,7 +13,7 @@
 #include"pixel.h"
 
 typedef struct CANVAS_T {
-  pixel ** pixel_instance;
+  pixel *** pixel_instance;
   int height;
   int width;
 } canvas;
