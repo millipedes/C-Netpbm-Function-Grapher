@@ -6,7 +6,7 @@
  * @bug None known
  * @todo Nothing
  */
-#include"include/canvas.h"
+#include "include/canvas.h"
 
 /**
  * This function intializes a canvas of given height and width

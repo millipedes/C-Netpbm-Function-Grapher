@@ -9,8 +9,8 @@
 #ifndef COL_H
 #define COL_H
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct COLOR_T {
   int r;

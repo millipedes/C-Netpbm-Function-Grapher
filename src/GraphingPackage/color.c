@@ -6,7 +6,7 @@
  * @bug None known
  * @todo Nothing
  */
-#include"include/color.h"
+#include "include/color.h"
 
 /**
  * This function initializes a color object given a red, green, and blue value

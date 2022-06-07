@@ -9,7 +9,7 @@
 #ifndef PIX_H
 #define PIX_H
 
-#include"../../include/color.h"
+#include "../../include/color.h"
 
 typedef struct PIXEL_T {
   color * pix_color;

@@ -6,7 +6,7 @@
  * @bug None known
  * @todo Nothing
  */
-#include"include/pixel.h"
+#include "include/pixel.h"
 
 /**
  * This function initializes a pixel

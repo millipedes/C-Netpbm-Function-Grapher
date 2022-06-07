@@ -9,8 +9,8 @@
 #ifndef CAN_H
 #define CAN_H
 
-#include"../../../main/include/constants.h"
-#include"pixel.h"
+#include "../../../main/include/constants.h"
+#include "pixel.h"
 
 typedef struct CANVAS_T {
   pixel *** pixel_instance;
