@@ -1,8 +1,16 @@
+/**
+ * @file axis_tic_marks.h
+ * @brief This file contains the function definitions for axis_tic_marks.c
+ * @author Matthew C. Lindeman
+ * @date June 07, 2022
+ * @bug None known
+ * @todo Nothing
+ */
 #ifndef ATM_H
 #define ATM_H
 
 #include "../../GraphEncoding/include/canvas.h"
-#include"../../../main/include/constants.h"
+#include "../../../main/include/constants.h"
 #include "axis.h"
 
 typedef struct AXIS_TIC_MARKS {

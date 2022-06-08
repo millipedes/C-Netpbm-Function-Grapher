@@ -1,25 +1,16 @@
 @startuml
 
-
 package GraphingPackage {
-  '' package FileIO {
-  ''   class file_io {
-  ''     {static} + write_graph_components(graph)
-  ''   }
-  '' }
-    class graph {
-       {field} + scale : graph_scale *
-       {field} + relations : relation **
-       {field} + relation_no : int
-    }
-
   package "Graph Encoding" {
     class canvas {
        {field} + height : int
        {field} + width : int
-       {field} + pixel_instance : pixel **
-      {method} + canvas * init_canvas(int, int)
-      {method} + void free_canvas(canvas *)
+       {field} + pixel_instance : pixel ***
+      {method} canvas * init_canvas(int height, int width)
+      {method} void canvas_dump_debug(canvas * can)
+      {method} void write_rectangle(canvas *, int, int, int, int, color * col)
+      {method} void letter_print_canvas(canvas * can)
+      {method} void free_canvas(canvas * can)
     }
 
     class pixel {
@@ -32,36 +23,45 @@ package GraphingPackage {
 
   package GraphPresets {
     class graph_scale {
-       {field} + tic_marks : axis_tic_marks *
-       {field} + axes : coord_axis *
-       {field} + border : graph_border *
+       {field} + atm : axis_tic_marks *
+       {field} + coord_axes : coord_axis *
+       {field} + gb : graph_border *
        {field} + axis_no : int
-      {method} + void write_gs_to_canvas(canvas *)
+      {method} + graph_scale * init_graph_scale(axis_tic_marks *, coord_axis *, coord_axis *, graph_border *, int)
+      {method} + void write_gs_to_canvas(canvas *, graph_scale *);
+      {method} + void free_graph_scale(graph_scale *);
     }
 
     class axis_tic_marks {
-       {field} + mark_no : int
-       {field} + mark_thickness : int
-       {field} + mark_axis : axis
-      {method} + axis_tic_marks * axis_tic_marks(int, int, axis)
-      {method} + void write_atm_to_canvas(canvas *)
+       {field} + col : color *
+       {field} + qty : int 
+       {field} + width : int 
+       {field} + height : int 
+       {field} + this_axis : axis 
+      {method} + axis_tic_marks * init_axis_tic_marks(int, int, int, axis)
+      {method} + void write_atm_to_canvas(canvas *, axis_tic_marks *)
+      {method} + void axis_tic_marks_dump_debug(axis_tic_marks *)
       {method} + void free_axis_tic_marks(axis_tic_marks *)
     }
 
     class coord_axis {
+       {field} + black : color *
        {field} + width : int
        {field} + this_axis : axis
-      {method} + coord_axis * init_coord_axis(axis, int)
-      {method} + void write_ca_to_canvas(canvas *)
-      {method} + void free_coord_axis(coord_axis *)
+      {method} + coord_axis * init_coord_axis(int, axis);
+      {method} + void write_ca_to_canvas(canvas *, coord_axis *);
+      {method} + int in_range_of_ca(coord_axis *, int, int);
+      {method} + void coord_axis_dump_debug(coord_axis *);
+      {method} + void free_coord_axis(coord_axis *);
     }
 
     class graph_border {
        {field} + width : int
        {field} + b_color : color *
-      {method} + grpah_border * init_graph_border(color *, int)
-      {method} + void write_gb_to_canvas(canvas *)
-      {method} + void free_graph_border(border *)
+      {method} + graph_border * init_graph_border(color *, int)
+      {method} + void write_gb_to_canvas(canvas *, graph_border *)
+      {method} + void graph_border_dump_debug(graph_border *)
+      {method} + void free_graph_border(graph_border *)
     }
 
     enum axis {
@@ -71,8 +71,7 @@ package GraphingPackage {
   }
 
   class relation {
-     {field} + relation(double *, int) : double
-    {method} + void write_rel_to_canvas(canvas *)
+    {method} + void write_rel_to_canvas(canvas *, double (double), color *)
   }
 
   class color {
@@ -80,18 +79,14 @@ package GraphingPackage {
      {field} + g : int
      {field} + b : int
     {method} + color * init_color(int, int, int)
+    {method} + void color_dump_debug(color *)
+    {method} + void change_color(color *, color *)
     {method} + void free_color(color *)
   }
 }
 
 pixel        o--> color
 graph_border o--> color
-
-'' Main --> file_io
-Main --> graph
-
-graph "1" o--> "1" graph_scale
-graph "1" o--> "*" relation
 
 canvas "1" o--> "*" pixel
 

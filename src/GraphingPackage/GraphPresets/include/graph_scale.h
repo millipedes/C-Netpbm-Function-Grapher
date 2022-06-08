@@ -1,3 +1,11 @@
+/**
+ * @file graph_scale.h
+ * @brief This file contains the function definitions for graph_scale.c
+ * @author Matthew C. Lindeman
+ * @date June 07, 2022
+ * @bug None known
+ * @todo Nothing
+ */
 #ifndef GRS_H
 #define GRS_H
 

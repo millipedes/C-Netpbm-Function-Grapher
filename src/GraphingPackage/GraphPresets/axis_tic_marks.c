@@ -8,6 +8,13 @@
  */
 #include "include/axis_tic_marks.h"
 
+/**
+ * This function initializes an axis tic mark struct
+ * @param    qty - the quantity of tic marks
+ * @param  width - the width of the rectangular tic marks
+ * @param height - the height of the rectangular tic marks
+ * @return
+ */
 axis_tic_marks * init_axis_tic_marks(int qty, int width, int height,
     axis this_axis) {
   axis_tic_marks * atm = calloc(1, sizeof(struct AXIS_TIC_MARKS));
@@ -60,6 +67,11 @@ void axis_tic_marks_dump_debug(axis_tic_marks * atm) {
   printf("--\n");
 }
 
+/**
+ * This function frees the axis tic marks
+ * @param  atm - the tic marks to be freed
+ * @return N/a
+ */
 void free_axis_tic_marks(axis_tic_marks * atm) {
   if(atm) {
     if(atm->col) {

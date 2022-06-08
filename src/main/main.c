@@ -1,10 +1,7 @@
 #include "../GraphingPackage/GraphPresets/include/graph_scale.h"
 
 int main(void) {
-  canvas         * can = init_canvas(15, 15);
-  // graph_border   * gb = init_graph_border(init_color(0, 0, 0), 1);
-  // coord_axis     * c_a = init_coord_axis(1, Y);
-  // axis_tic_marks * atm = init_axis_tic_marks(3, 3, 2, Y);
+  canvas      * can = init_canvas(15, 15);
   graph_scale * gs = init_graph_scale(init_axis_tic_marks(3, 3, 2, Y),
       init_coord_axis(1, X), init_coord_axis(1, Y),
       init_graph_border(init_color(0, 0, 0), 1), 2);

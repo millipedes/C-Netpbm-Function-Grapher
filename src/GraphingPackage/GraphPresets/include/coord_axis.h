@@ -10,8 +10,8 @@
 #define CAX_H
 
 #include <stdlib.h>
-#include"../../include/color.h"
-#include"../../GraphEncoding/include/canvas.h"
+#include "../../include/color.h"
+#include "../../GraphEncoding/include/canvas.h"
 #include "axis.h"
 
 typedef struct COORD_AXIS_T {
