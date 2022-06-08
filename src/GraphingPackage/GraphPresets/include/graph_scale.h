@@ -15,14 +15,14 @@
 #include "../../GraphEncoding/include/canvas.h"
 
 typedef struct GRAPH_SCALE_T {
-  axis_tic_marks * atm;
+  axis_tic_marks ** atm;
   coord_axis ** coord_axes;
   graph_border * gb;
   int axis_no;
 } graph_scale;
 
-graph_scale * init_graph_scale(axis_tic_marks * atm, coord_axis * ca_x,
-    coord_axis * ca_y, graph_border * gb, int axis_no);
+graph_scale * init_graph_scale(axis_tic_marks * atm_x, axis_tic_marks * atm_y,
+    coord_axis * ca_x, coord_axis * ca_y, graph_border * gb, int axis_no);
 void write_gs_to_canvas(canvas * can, graph_scale * gs);
 void free_graph_scale(graph_scale * gs);
 
