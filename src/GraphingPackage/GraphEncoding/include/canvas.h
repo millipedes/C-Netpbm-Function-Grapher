@@ -20,6 +20,9 @@ typedef struct CANVAS_T {
 
 canvas * init_canvas(int height, int width);
 void canvas_dump_debug(canvas * can);
+void write_rectangle(canvas * can, int cen_x, int cen_y, int h, int w,
+    color * col);
+void letter_print_canvas(canvas * can);
 void free_canvas(canvas * can);
 
 #endif

@@ -44,6 +44,40 @@ void canvas_dump_debug(canvas * can) {
 }
 
 /**
+ * This function draws a rectangle centered at (cen_x, cen_y) on the canvas of
+ * the given color
+ * @param   can - the canvas to be written to
+ * @param cen_x - the x center coordinate of the reactangle
+ * @param cen_y - the canvas to be written to
+ * @param     h - the height of the rectangle
+ * @param     w - the width of the rectangle
+ * @param   col - the color of the rectangle
+ * @return  N/a
+ */
+void write_rectangle(canvas * can, int cen_x, int cen_y, int h, int w,
+    color * col) {
+  // Start top until the bottom
+  for(int i = (cen_y - (h / 2)); i <= (cen_y + (h / 2)); i++) {
+    // Start at the left until the right
+    for(int j = (cen_x - (w / 2)); j <= (cen_x + (w / 2)); j++) {
+      if(i >= 0 && j >= 0 && i < can->height && j < can->width)
+        change_color(can->pixel_instance[i][j]->pix_color, col);
+    }
+  }
+}
+
+void letter_print_canvas(canvas * can) {
+  printf("Canvas:\n");
+  for(int i = 0; i < can->height; i++) {
+    for(int j = 0; j < can->width; j++)
+      printf("(%d, %d, %d) ", can->pixel_instance[i][j]->pix_color->r,
+          can->pixel_instance[i][j]->pix_color->g,
+          can->pixel_instance[i][j]->pix_color->b);
+    printf("\n");
+  }
+}
+
+/**
  * This function frees a canvas
  * @param  can - the canvas
  * @return N/a
