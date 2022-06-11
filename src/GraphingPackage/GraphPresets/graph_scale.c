@@ -58,6 +58,7 @@ void free_graph_scale(graph_scale * gs) {
     if(gs->atm) {
       for(int i = 0; i < 2; i++)
         free_axis_tic_marks(gs->atm[i]);
+      free(gs->atm);
     }
     if(gs->coord_axes) {
       for(int i = 0; i < 2; i++)

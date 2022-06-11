@@ -19,6 +19,9 @@ all:$(OOBJFILES) $(TOBJFILES)
 vim:
 	nvim $(OCFILES) $(TCFILES)
 
+helix:
+	hx $(OCFILES) $(TCFILES)
+
 vimh:
 	nvim $(HFILES) 
 
