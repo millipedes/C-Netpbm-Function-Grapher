@@ -7,10 +7,10 @@ double x_squared(double x);
 int main(void) {
   canvas      * can = init_canvas(1000, 1000);
   graph_scale * gs = init_graph_scale(
-      init_axis_tic_marks(10, 10, 30, X),         // x axis tic marks
-      init_axis_tic_marks(10, 30, 10, Y),         // y axis tic marks
-      init_coord_axis(-1.0, 10.0, 5, X),          // x axis
-      init_coord_axis(-10.0, 10.0, 5, Y),          // y axis
+      init_axis_tic_marks(10, 5, 30, X),          // x axis tic marks
+      init_axis_tic_marks(10, 30, 5, Y),          // y axis tic marks
+      init_coord_axis(-10.0, 10.0, 2, X),         // x axis
+      init_coord_axis(-10.0, 10.0, 2, Y),         // y axis
       init_graph_border(init_color(0, 0, 0), 10), // border of graph
       2                                           // no axes (don't change!)
       );
@@ -25,5 +25,5 @@ int main(void) {
 }
 
 double x_squared(double x) {
-  return pow(x, 2);
+  return pow(x + 1, 2) - 3;
 }

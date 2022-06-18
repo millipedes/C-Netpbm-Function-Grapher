@@ -24,14 +24,27 @@ void write_rel_to_canvas(canvas * can, graph_scale * gs, double rel(double),
       i < gs->coord_axes[0]->axis_max;
       i += delta) {
       y = rel(i);
+      // See y notes for why negative minimums require an if
       if(gs->coord_axes[0]->axis_min >= 0)
         x_index = map_scale_to_canvas(can, gs, X, i);
       else
-        x_index = map_scale_to_canvas(can, gs, X, i - gs->coord_axes[0]->axis_min);
+        x_index
+          = map_scale_to_canvas(can, gs, X, i - gs->coord_axes[0]->axis_min);
+      /**
+       * Because the canvas y is upside down (i.e. zero is top not bottom) we
+       * need to invert the y index values (hence the can->height - ...).
+       *
+       * If there are negative values in the user defined graph_scale then we
+       * need to add the magnitude of the negative value as map_scale_to_canvas
+       * expects only natural number scalar magnitudes for the mapping (think
+       * about how to map two line segments to one another, that is the method
+       * used).
+       */
       if(gs->coord_axes[1]->axis_min >= 0)
         y_index = can->height - map_scale_to_canvas(can, gs, Y, y);
       else
-        y_index = can->height - (map_scale_to_canvas(can, gs, Y, y - gs->coord_axes[1]->axis_min));
+        y_index = can->height -
+          (map_scale_to_canvas(can, gs, Y, y - gs->coord_axes[1]->axis_min));
       if(y < gs->coord_axes[1]->axis_max
           && y >= gs->coord_axes[1]->axis_min
           && x_index >= 0 && x_index < can->width
