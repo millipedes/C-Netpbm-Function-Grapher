@@ -47,6 +47,19 @@ void change_color(color * dest, color * src) {
 }
 
 /**
+ * This function determines if a given color is white.  If so returns 1, 0
+ * otherwise (this is for checking bg color)
+ * @param test - the color to be tested
+ * @return   1 - the color is white
+ *           0 - the color is not white
+ */
+int is_color_white(color * test) {
+  if(test->r == COL_MAX && test->g == COL_MAX && test->b == COL_MAX)
+    return 1;
+  return 0;
+}
+
+/**
  * This function is basically just a free wrapper, but a part of the coding
  * style for this project
  * @param  col - the color to be freed

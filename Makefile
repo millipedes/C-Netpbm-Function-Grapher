@@ -19,12 +19,6 @@ all:$(OOBJFILES) $(TOBJFILES)
 vim:
 	nvim $(OCFILES) $(TCFILES)
 
-helix:
-	hx $(OCFILES) $(TCFILES)
-
-vimh:
-	nvim $(HFILES) 
-
 run:
 	$(EXEFILE)
 
@@ -40,6 +34,9 @@ feh:
 plant:
 	plantuml docs/uml.txt
 	convert docs/uml.png -channel RGB -negate docs/uml.png
+
+image-test:
+	xzgv test.ppm
 
 git-update:
 	git add Makefile README.md src/ docs/

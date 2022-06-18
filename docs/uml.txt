@@ -47,6 +47,7 @@ package GraphingPackage {
     class coord_axis {
        {field} + black : color *
        {field} + width : int
+       {field} + axis_min : int
        {field} + this_axis : axis
       {method} + coord_axis * init_coord_axis(int, axis);
       {method} + void write_ca_to_canvas(canvas *, coord_axis *);

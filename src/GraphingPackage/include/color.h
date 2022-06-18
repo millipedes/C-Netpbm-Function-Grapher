@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "../../main/include/constants.h"
 
 typedef struct COLOR_T {
   int r;
@@ -20,6 +21,7 @@ typedef struct COLOR_T {
 
 color * init_color(int r, int g, int b);
 void color_dump_debug(color * col);
+int is_color_white(color * test);
 void change_color(color * dest, color * src);
 void free_color(color * col);
 

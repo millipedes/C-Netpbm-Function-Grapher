@@ -16,11 +16,14 @@
 
 typedef struct COORD_AXIS_T {
   color * black;
+  double axis_min;
+  double axis_max;
   int width;
   axis this_axis;
 } coord_axis;
 
-coord_axis * init_coord_axis(int width, axis this_axis);
+coord_axis * init_coord_axis(double axis_min, double axis_max, int width,
+    axis this_axis);
 void write_ca_to_canvas(canvas * can, coord_axis * ca);
 int in_range_of_ca(coord_axis * ca, int scalar_size, int qty);
 void coord_axis_dump_debug(coord_axis * ca);

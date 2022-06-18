@@ -15,8 +15,11 @@
  * @param this_axis - which axis i.e. X, Y, Z (no Z support atm)
  * @return
  */
-coord_axis * init_coord_axis(int width, axis this_axis) {
+coord_axis * init_coord_axis(double axis_min, double axis_max, int width,
+    axis this_axis) {
   coord_axis * ca = calloc(1, sizeof(struct COORD_AXIS_T));
+  ca->axis_min = axis_min;
+  ca->axis_max = axis_max;
   ca->width = width;
   ca->this_axis = this_axis;
   ca->black = init_color(COL_MIN, COL_MIN, COL_MIN);
@@ -67,6 +70,7 @@ void coord_axis_dump_debug(coord_axis * ca) {
   printf("Coordinate Axis:\n");
   printf("%c Axis of %d width\n", (int)ca->this_axis == 0 ? 'X' : 'Y',
       ca->width);
+  printf("Axis Min: %lf Axis Max: %lf\n", ca->axis_min, ca->axis_max);
 }
 
 /**
