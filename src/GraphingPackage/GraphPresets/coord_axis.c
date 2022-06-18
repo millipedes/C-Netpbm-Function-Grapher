@@ -13,7 +13,7 @@
  * This function initializes the coordinate axis
  * @param     width - the width of the axis
  * @param this_axis - which axis i.e. X, Y, Z (no Z support atm)
- * @return
+ * @return       ca - the new axis
  */
 coord_axis * init_coord_axis(double axis_min, double axis_max, int width,
     axis this_axis) {
@@ -28,9 +28,9 @@ coord_axis * init_coord_axis(double axis_min, double axis_max, int width,
 
 /**
  * This function is used to write a coordinate axis to a canvas
- * @param can - the canvas to write the axes to
- * @param c_a - the coordinate axis to be written
- * @return
+ * @param  can - the canvas to write the axes to
+ * @param  c_a - the coordinate axis to be written
+ * @return N/a
  */
 void write_ca_to_canvas(canvas * can, coord_axis * c_a) {
   for(int i = 0; i < can->height; i++) {

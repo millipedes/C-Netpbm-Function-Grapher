@@ -1,3 +1,11 @@
+/**
+ * @file file_io.h
+ * @brief this file contains the function definitions for file_io.c
+ * @author Matthew C. Lindeman
+ * @date June 18, 2022
+ * @bug None known
+ * @todo Nothing
+ */
 #ifndef FIO_H
 #define FIO_H
 

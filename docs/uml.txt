@@ -1,7 +1,7 @@
 @startuml
 
 package GraphingPackage {
-  package "Graph Encoding" {
+  package GraphEncoding {
     class canvas {
        {field} + height : int
        {field} + width : int
@@ -17,6 +17,7 @@ package GraphingPackage {
        {field} + pix_color : color *
        {field} + layer_no : int
       {method} + pixel * init_pixel(color *, int)
+      {method} + void pixel_dump_debug(pixel *)
       {method} + void free_pixel(pixel *)
     }
   }
@@ -46,8 +47,9 @@ package GraphingPackage {
 
     class coord_axis {
        {field} + black : color *
+       {field} + axis_min : double
+       {field} + axis_max : double
        {field} + width : int
-       {field} + axis_min : int
        {field} + this_axis : axis
       {method} + coord_axis * init_coord_axis(int, axis);
       {method} + void write_ca_to_canvas(canvas *, coord_axis *);
@@ -68,11 +70,13 @@ package GraphingPackage {
     enum axis {
       X
       Y
+      Z
     }
   }
 
   class relation {
-    {method} + void write_rel_to_canvas(canvas *, double (double), color *)
+    {method} + void write_rel_to_canvas(canvas *, graph_scale *, double(double), color*, double)
+    {method} + int map_scale_to_canvas(canvas *, graph_scale *, axis, double)
   }
 
   class color {
@@ -81,18 +85,22 @@ package GraphingPackage {
      {field} + b : int
     {method} + color * init_color(int, int, int)
     {method} + void color_dump_debug(color *)
+    {method} + int is_color_white(color *)
     {method} + void change_color(color *, color *)
     {method} + void free_color(color *)
   }
 }
 
+' The arrows to color
 pixel        o--> color
 graph_border o--> color
 
+' The arrows relating to GraphEncoding
 canvas "1" o--> "*" pixel
 
-axis_tic_marks      o-->       axis
-coord_axis          o-->       axis
+' The arrows relating to GraphingPresets
+axis_tic_marks     o-->       axis
+coord_axis         o-->       axis
 axis_tic_marks "2" <-up-o "1" graph_scale
 coord_axis     "2" <-up-o "1" graph_scale
 graph_border       <-up-o     graph_scale
