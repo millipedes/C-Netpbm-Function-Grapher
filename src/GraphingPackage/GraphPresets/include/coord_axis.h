@@ -1,10 +1,10 @@
 /**
- * @file coord_axis.h
- * @brief This file contains the function definitions for coord_axis
+ * @file   coord_axis.h
+ * @brief  This file contains the function definitions for coord_axis
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #ifndef CAX_H
 #define CAX_H

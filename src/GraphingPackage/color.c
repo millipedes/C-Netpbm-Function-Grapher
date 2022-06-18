@@ -1,10 +1,10 @@
 /**
- * @file color.c
- * @brief This file contains functions relating to color
+ * @file   color.c
+ * @brief  This file contains functions relating to color
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #include "include/color.h"
 

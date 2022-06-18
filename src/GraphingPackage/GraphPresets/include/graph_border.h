@@ -1,10 +1,10 @@
 /**
- * @file graph_border.h
- * @brief this file contains the function definitions for graph_border.c
+ * @file   graph_border.h
+ * @brief  this file contains the function definitions for graph_border.c
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #ifndef GRB_H
 #define GRB_H

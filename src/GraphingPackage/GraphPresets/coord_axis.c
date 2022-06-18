@@ -1,11 +1,11 @@
 /**
- * @file coord_axis.c
- * @brief This file contains the functions relating to the coordinate axis of a
+ * @file   coord_axis.c
+ * @brief  This file contains the functions relating to the coordinate axis of a
  * graph
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #include "include/coord_axis.h"
 

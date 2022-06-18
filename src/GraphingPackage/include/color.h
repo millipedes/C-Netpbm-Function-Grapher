@@ -1,10 +1,10 @@
 /**
- * @file color.h
- * @brief This file contains function definitions for color.c
+ * @file   color.h
+ * @brief  This file contains function definitions for color.c
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #ifndef COL_H
 #define COL_H

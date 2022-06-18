@@ -1,10 +1,10 @@
 /**
- * @file file_io.c
- * @brief this file contains the function to write a canvas to a netpbm file
+ * @file   file_io.c
+ * @brief  this file contains the function to write a canvas to a netpbm file
  * @author Matthew C. Lindeman
- * @date June 18, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 18, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #include "include/file_io.h"
 

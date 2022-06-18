@@ -1,10 +1,10 @@
 /**
- * @file graph_border.c
- * @brief this file contains the functions related to the border of the graph
+ * @file   graph_border.c
+ * @brief  this file contains the functions related to the border of the graph
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #include "include/graph_border.h"
 

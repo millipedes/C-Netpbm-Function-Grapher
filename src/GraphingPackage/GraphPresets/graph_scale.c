@@ -1,11 +1,11 @@
 /**
- * @file graph_scale.c
- * @brief This file contains the functions related to the graph scale struct
+ * @file   graph_scale.c
+ * @brief  This file contains the functions related to the graph scale struct
  * (i.e. the tic marks, the axes, and the border)
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #include "include/graph_scale.h"
 

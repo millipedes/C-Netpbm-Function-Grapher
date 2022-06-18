@@ -1,10 +1,10 @@
 /**
- * @file axis_tic_marks.c
- * @brief This file contains the functions relating to the axis tic marks
+ * @file   axis_tic_marks.c
+ * @brief  This file contains the functions relating to the axis tic marks
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #include "include/axis_tic_marks.h"
 

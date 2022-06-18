@@ -1,10 +1,10 @@
 /**
- * @file canvas.c
- * @brief this file contains the canvas related functions
+ * @file   canvas.c
+ * @brief  this file contains the canvas related functions
  * @author Matthew C. Lindeman
- * @date June 07, 2022
- * @bug None known
- * @todo Nothing
+ * @date   June 07, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #include "include/canvas.h"
 
