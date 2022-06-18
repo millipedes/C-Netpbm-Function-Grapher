@@ -36,7 +36,7 @@ plant:
 	convert docs/uml.png -channel RGB -negate docs/uml.png
 
 image-test:
-	xzgv test.ppm
+	feh test.ppm
 
 git-update:
 	git add Makefile README.md src/ docs/

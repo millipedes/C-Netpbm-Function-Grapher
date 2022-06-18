@@ -24,8 +24,14 @@ void write_rel_to_canvas(canvas * can, graph_scale * gs, double rel(double),
       i < gs->coord_axes[0]->axis_max;
       i += delta) {
       y = rel(i);
-      x_index = map_scale_to_canvas(can, gs, X, i);
-      y_index = can->height - map_scale_to_canvas(can, gs, Y, y);
+      if(gs->coord_axes[0]->axis_min >= 0)
+        x_index = map_scale_to_canvas(can, gs, X, i);
+      else
+        x_index = map_scale_to_canvas(can, gs, X, i - gs->coord_axes[0]->axis_min);
+      if(gs->coord_axes[1]->axis_min >= 0)
+        y_index = can->height - map_scale_to_canvas(can, gs, Y, y);
+      else
+        y_index = can->height - (map_scale_to_canvas(can, gs, Y, y - gs->coord_axes[1]->axis_min));
       if(y < gs->coord_axes[1]->axis_max
           && y >= gs->coord_axes[1]->axis_min
           && x_index >= 0 && x_index < can->width
