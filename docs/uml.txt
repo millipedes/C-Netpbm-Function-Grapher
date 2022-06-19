@@ -91,6 +91,65 @@ package GraphingPackage {
   }
 }
 
+package FunctionCFG {
+  package Lexer {
+    class lexer {
+       {field} + src : char *
+       {field} + curr_index : int
+       {field} + c : char
+      {method} + lexer * init_lexer(char *)
+      {method} + token ** lex_source(lexer *)
+      {method} + token * lex_next_token(lexer *)
+      {method} + token * lex_number(lexer *)
+      {method} + token * lex_word(lexer *)
+      {method} + token * lex_string(lexer *)
+      {method} + void lex_advance(lexer *)
+      {method} + void lex_whitespace(lexer *)
+      {method} + void free_lexer(lexer *)
+    }
+  }
+
+  package Parser {
+    class parser {
+      {method} + ast * parse_expression(token **);
+      {method} + ast * parse_factor(token **);
+      {method} + ast * binary_tree(ast *, ast *, ast *);
+      {method} + ast * unary_tree(ast *, ast *);
+    }
+
+    class abstract_syntax_tree {
+       {field} + value : token *
+       {field} + children : abstract_syntax_tree **
+       {field} + no_children : int
+      {method} + ast * init_ast(char *, token_type)
+      {method} + void ast_dump_debug(ast *)
+      {method} + void free_ast(ast *)
+    }
+  }
+
+  package Token {
+    class token {
+       {field} + t_literal : char *
+       {field} + type : token_type
+      {method} + token * init_token(char *, token_type)
+      {method} + void token_dump_debug(token *)
+      {method} + void free_token(token *)
+    }
+
+    enum token_type {
+      TOKEN_VAR
+      TOKEN_NUMBER
+      TOKEN_PLUS
+      TOKEN_MINUS
+      TOKEN_L_PAREN
+      TOKEN_R_PAREN
+      TOKEN_COMMA
+      TOKEN_SUCH_THAT
+      TOKEN_NEWLINE
+    }
+  }
+}
+
 ' The arrows to color
 pixel        o--> color
 graph_border o--> color
@@ -104,5 +163,10 @@ coord_axis         o-->       axis
 axis_tic_marks "2" <-up-o "1" graph_scale
 coord_axis     "2" <-up-o "1" graph_scale
 graph_border       <-up-o     graph_scale
+
+token o--> token_type
+
+parser --> abstract_syntax_tree
+parser --> token
 
 @enduml
