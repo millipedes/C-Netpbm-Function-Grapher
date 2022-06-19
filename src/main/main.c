@@ -40,7 +40,7 @@ int main(void) {
    * Front end functions relating to CFG
    */
   int size = 0;
-  lexer * lex = init_lexer("123.132 + 92 - 10^2 * 99.8 / 40 , ::\n");
+  lexer * lex = init_lexer("123.132 + 92 - 10^2 * 99.8 / 40 , :: x file.name\n");
   token ** tok_list = lex_source(lex);
   while(tok_list[size]->type != TOKEN_NEWLINE) {
     token_dump_debug(tok_list[size]);

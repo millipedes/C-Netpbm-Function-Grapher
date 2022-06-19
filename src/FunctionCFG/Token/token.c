@@ -38,6 +38,8 @@ token ** init_token_list(void) {
  * This function adds the addition token to the token list list
  * @param     list - the list to be added to
  * @param addition - the token to add to the list
+ * @param     size - the size of the token list (by the time it is made it will
+ * be terminated by a newline, but while making it we need to know the size)
  * @return     N/a
  */
 token ** add_token_to_list(token ** tok_list, token * addition, int size) {
@@ -87,10 +89,13 @@ void free_token(token * t) {
 void free_token_list(token ** tok_list) {
   int size = 0;
   if(tok_list) {
-    while(tok_list[size]) {
-      free_token(tok_list[size]);
+    while(tok_list[size]->type != TOKEN_NEWLINE) {
+      if(tok_list[size])
+        free_token(tok_list[size]);
       size++;
     }
+    if(tok_list[size])
+      free_token(tok_list[size]);
     free(tok_list);
   }
 }

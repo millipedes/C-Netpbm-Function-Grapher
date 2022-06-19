@@ -52,26 +52,13 @@ token ** lex_source(lexer * l) {
  */
 token * lex_next_token(lexer * l) {
   lex_whitespace(l);
-  // if(isalpha(l->c)) {
-  //   return lex_word(l);
-  // }
+  if(isalpha(l->c)) {
+    return lex_fn_or_var(l);
+  }
 
   if(isdigit(l->c)) {
     return lex_number(l);
   }
-  // TOKEN_VAR,       * Needs to be made
-  // TOKEN_FILE_NAME, * Needs to be made
-  // TOKEN_NUMBER,    * Done
-  // TOKEN_PLUS,      * Done
-  // TOKEN_MINUS,     * Done
-  // TOKEN_MULT,      * Done
-  // TOKEN_DIV,       * Done
-  // TOKEN_L_PAREN,   * Done
-  // TOKEN_R_PAREN,   * Done
-  // TOKEN_COMMA,     * Needs to be made
-  // TOKEN_SUCH_THAT, * Done
-  // TOKEN_POWER,     * Done
-  // TOKEN_NEWLINE,   * Done
 
   switch(l->c) {
     case '(':
@@ -148,46 +135,28 @@ token * lex_number(lexer * l) {
  * @param    l - the lexer containing the source
  * @return tmp - the token
  */
-// token * lex_word(lexer * l) {
-//   size_t len = 0;
-//   int start_index = l->curr_index;
-//   while(isalpha(l->c)) {
-//     lex_advance(l);
-//     len++;
-//   }
-//   char * result = calloc(len + 1, sizeof(char));
-//   memcpy(result, &l->src[start_index], len);
-//   token * tmp = init_token(result, TOKEN_WORD);
-//   if(result) {
-//     free(result);
-//   }
-//   return tmp;
-// }
-
-/**
- * This function lexs a string (any characters between '"')
- * @param    l - the lexer containing the source
- * @return tmp - the token corresponding
- */
-// token * lex_string(lexer * l) {
-//   lex_advance(l);
-//   size_t len = 0;
-//   int start_index = l->curr_index;
-//   // This is for the first "
-//   while(l->c != '\"') {
-//     lex_advance(l);
-//     len++;
-//   }
-//   // This is for the second "
-//   lex_advance(l);
-//   char * result = calloc(len + 1, sizeof(char));
-//   memcpy(result, &l->src[start_index], len);
-//   token * tmp = init_token(result, TOKEN_STRING);
-//   if(result) {
-//     free(result);
-//   }
-//   return tmp;
-// }
+token * lex_fn_or_var(lexer * l) {
+  size_t len = 0;
+  int period_flag = 0;
+  int start_index = l->curr_index;
+  while(isalpha(l->c)) {
+    lex_advance(l);
+    if(l->c == '.' && period_flag == 0) {
+      lex_advance(l);
+      len++;
+      period_flag = 1;
+    }
+    len++;
+  }
+  char * result = calloc(len + 1, sizeof(char));
+  memcpy(result, &l->src[start_index], len);
+  token * tmp = period_flag == 0 ? init_token(result, TOKEN_VAR)
+    : init_token(result, TOKEN_FILE_NAME);
+  if(result) {
+    free(result);
+  }
+  return tmp;
+}
 
 /**
  * This function ``advances" the lexer once

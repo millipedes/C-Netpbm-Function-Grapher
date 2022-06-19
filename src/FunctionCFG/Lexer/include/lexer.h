@@ -26,7 +26,7 @@ lexer * init_lexer(char * src);
 token ** lex_source(lexer * l);
 token * lex_next_token(lexer * l);
 token * lex_number(lexer * l);
-// token * lex_word(lexer * l);
+token * lex_fn_or_var(lexer * l);
 // token * lex_string(lexer * l);
 void lex_advance(lexer * l);
 void lex_whitespace(lexer * l);
