@@ -40,7 +40,7 @@ token ** lex_source(lexer * l) {
     size++;
   }
   // For the newline itself
-  tok_list =  add_token_to_list(tok_list, lex_next_token(l), size);
+  tok_list = add_token_to_list(tok_list, lex_next_token(l), size);
   return tok_list;
 }
 
@@ -120,10 +120,8 @@ token * lex_number(lexer * l) {
     }
     len++;
   }
-  // What will be put into a token
   char * result = calloc(len + 1, sizeof(char));
   memcpy(result, &l->src[start_index], len);
-  // If the decimal flag set ret double otherwise int
   token * tmp = init_token(result, TOKEN_NUMBER);
   if(result)
     free(result);

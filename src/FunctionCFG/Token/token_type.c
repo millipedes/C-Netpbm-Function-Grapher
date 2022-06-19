@@ -19,7 +19,7 @@ char * token_type_to_string(token_type type) {
     case TOKEN_VAR:
       return "TOKEN_VAR";
     case TOKEN_FILE_NAME:
-      return "TOKEN_NAME";
+      return "TOKEN_FILE_NAME";
     case TOKEN_NUMBER:
       return "TOKEN_NUMBER";
     case TOKEN_PLUS:
