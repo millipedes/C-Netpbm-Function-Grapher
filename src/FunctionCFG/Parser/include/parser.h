@@ -11,8 +11,9 @@
 
 #include "abstract_syntax_tree.h"
 
-ast * parse_expression(token ** tok_list, int * index);
-ast * parse_factor(token ** tok_list, int * index);
+ast * parse_expression(token_stack ** ts);
+ast * parse_term(token_stack ** ts);
+ast * parse_factor(token_stack ** ts);
 ast * binary_tree(ast * parent, ast * left_child, ast * right_child);
 ast * unary_tree(ast * parent, ast * child);
 

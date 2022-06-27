@@ -9,7 +9,7 @@
 #ifndef AST_H
 #define AST_H
 
-#include "../../Token/include/token.h"
+#include "../../Token/include/token_stack.h"
 
 typedef struct AST_T {
   token * value;

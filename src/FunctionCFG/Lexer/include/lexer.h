@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "../../Token/include/token.h"
+#include "../../Token/include/token_stack.h"
 #include "../../../main/include/constants.h"
 
 typedef struct LEXER_T {
@@ -23,7 +23,7 @@ typedef struct LEXER_T {
 } lexer;
 
 lexer * init_lexer(char * src);
-token ** lex_source(lexer * l);
+token_stack * lex_source(lexer * l);
 token * lex_next_token(lexer * l);
 token * lex_number(lexer * l);
 token * lex_fn_or_var(lexer * l);

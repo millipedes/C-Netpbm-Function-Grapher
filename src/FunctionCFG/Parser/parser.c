@@ -13,55 +13,47 @@
  * @param  tok_list - the token stack to be parsed
  * @return       .\ - the abstract syntax tree of the expression
  */
-// ast * parse_expression(token ** tok_list, int index) {
-//   ast * left_child = parse_factor(tok_list, index + 1);
-//   ast * right_child = NULL;
-//   ast * parent = NULL;
-//   switch(tok_list[index]->type) {
-//     case TOKEN_PLUS:
-//     case TOKEN_MINUS:
-//       parent = init_ast(tok_list[index]->t_literal, tok_list[index]->type);
-//       right_child = parse_expression(tok_list, );
-//       return binary_tree(parent, left_child, right_child);
-//     case TOKEN_NUMBER:
-//     case TOKEN_VAR:
-//       return parse_factor(tok_list, index);
-//     default:
-//       fprintf(stderr, "[PARSER]: Unexpected expression token: %s\nExiting\n",
-//           token_type_to_string(tok_list[index]->type));
-//       exit(1);
-//   }
-//   fprintf(stderr, "[PARSER]: Something went wrong in parse_expression\n"
-//       "Exiting\n");
-//   exit(1);
-// }
+ast * parse_expression(token_stack ** ts) {
+  while(ts[0]->current->type == TOKEN_NEWLINE) ts[0] = pop_token(ts[0]);
+  switch(ts[0]->current->type) {
+    case TOKEN_NUMBER:
+      return parse_term(ts);
+    default:
+      fprintf(stderr, "[PARSER1]: Unrecognized token: `%s`\nExiting\n",
+          ts[0]->current->t_literal);
+      exit(1);
+  }
+}
+
+ast * parse_term(token_stack ** ts) {
+  switch(ts[0]->current->type) {
+    case TOKEN_NUMBER:
+      return parse_factor(ts);
+    default:
+      fprintf(stderr, "[PARSER2]: Unrecognized token: `%s`\nExiting\n",
+          ts[0]->current->t_literal);
+      exit(1);
+  }
+}
 
 /**
  * This function is meant to parse a factor
  * @param tok_list - the token stack to be parsed
  * @return abstree - the new abstract syntax tree from the factor
  */
-// ast * parse_factor(token ** tok_list, int index) {
-//   ast * abstree = NULL;
-//   switch(tok_list[index]->type) {
-//     case TOKEN_NUMBER:
-//     case TOKEN_VAR:
-//       abstree = init_ast(tok_list[index]->t_literal, tok_list[index]->type);
-//       return abstree;
-//     case TOKEN_L_PAREN:
-//       abstree = parse_expression(tok_list, index + 1);
-//       return abstree;
-//     case TOKEN_MINUS:
-//       abstree = init_ast(tok_list[index]->t_literal, tok_list[index]->type);
-//       return unary_tree(abstree, parse_expression(tok_list, index + 1));
-//     case TOKEN_NEWLINE:
-//       return NULL;
-//     default:
-//       fprintf(stderr, "[PARSER]: Unexpected factor token: %s\nExiting\n",
-//           token_type_to_string(tok_list[index]->type));
-//       exit(1);
-//   }
-// }
+ast * parse_factor(token_stack ** ts) {
+  ast * tmp;
+  switch(ts[0]->current->type) {
+    case TOKEN_NUMBER:
+      tmp = init_ast(ts[0]->current->t_literal, ts[0]->current->type);
+      ts[0] = pop_token(ts[0]);
+      return tmp;
+    default:
+      fprintf(stderr, "[PARSER3]: Unrecognized token: `%s`\nExiting\n",
+          ts[0]->current->t_literal);
+      exit(1);
+  }
+}
 
 /**
  * This function takes a parent tree, allocates space for children, then sets

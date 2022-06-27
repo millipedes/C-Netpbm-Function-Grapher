@@ -52,5 +52,6 @@ void free_ast(ast * abstree) {
           free_ast(abstree->children[i]);
       }
     }
+    free(abstree);
   }
 }

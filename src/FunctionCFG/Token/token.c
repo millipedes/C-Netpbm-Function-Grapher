@@ -56,7 +56,7 @@ token ** add_token_to_list(token ** tok_list, token * addition, int size) {
  */
 void token_dump_debug(token * t) {
   if(t) {
-    printf("TOKEN:\n");
+    printf("Token:\n");
     if(t->t_literal)
       printf("t_literal: `%s` ", t->t_literal);
     printf("type: `%s`\n", token_type_to_string(t->type));

@@ -7,8 +7,9 @@
 /**
  * Front end includes
  */
-#include "../FunctionCFG/Token/include/token.h"
+#include "../FunctionCFG/Token/include/token_stack.h"
 #include "../FunctionCFG/Lexer/include/lexer.h"
+#include "../FunctionCFG/Parser/include/parser.h"
 
 // double x_squared(double x);
 
@@ -39,15 +40,16 @@ int main(void) {
   /**
    * Front end functions relating to CFG
    */
-  int size = 0;
-  lexer * lex = init_lexer("123.132 + 92 - 10^2 * 99.8 / 40 , :: x file.name\n");
-  token ** tok_list = lex_source(lex);
-  while(tok_list[size]->type != TOKEN_NEWLINE) {
-    token_dump_debug(tok_list[size]);
-    size++;
-  }
+  lexer * lex = init_lexer("123.132\n");
+  token_stack * tok_list = lex_source(lex);
+  token_stack_dump_debug(tok_list);
 
-  free_token_list(tok_list);
+  ast * abstree = parse_expression(&tok_list);
+  ast_dump_debug(abstree);
+  free_ast(abstree);
+
+  if(tok_list)
+    while(tok_list) tok_list = pop_token(tok_list);
   free_lexer(lex);
   return 0;
 }

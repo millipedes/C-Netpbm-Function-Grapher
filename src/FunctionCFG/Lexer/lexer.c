@@ -28,20 +28,17 @@ lexer * init_lexer(char * src) {
  * @param   l - the lexer containing the source from the user
  * @return ts - the token_stack that is reflective of the source
  */
-token ** lex_source(lexer * l) {
+token_stack * lex_source(lexer * l) {
   /**
    * NOTE: that on an empty input, l->c will be a new line thus this is
    * sufficient
    */
-  int size = 0;
-  token ** tok_list = init_token_list();
-  while(l->c != '\n' && l->c != '\r') {
-    tok_list = add_token_to_list(tok_list, lex_next_token(l), size);
-    size++;
-  }
-  // For the newline itself
-  tok_list = add_token_to_list(tok_list, lex_next_token(l), size);
-  return tok_list;
+  token_stack * ts = init_token_stack(lex_next_token(l));
+  while(l->c != '\n' && l->c != '\r')
+    ts = push_token(ts, lex_next_token(l));
+  // The newline itself
+  ts = push_token(ts, lex_next_token(l));
+  return ts;
 }
 
 /**
