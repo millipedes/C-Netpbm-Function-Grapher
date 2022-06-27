@@ -14,25 +14,30 @@
  * @return       .\ - the abstract syntax tree of the expression
  */
 ast * parse_expression(token_stack ** ts) {
-  while(ts[0]->current->type == TOKEN_NEWLINE) ts[0] = pop_token(ts[0]);
-  ast * a = parse_term(ts);
-  ast * b;
+  ast * left_child = NULL;
+  ast * right_child = NULL;
   if(ts[0]) {
+    left_child = parse_term(ts);
     switch(ts[0]->current->type) {
       case TOKEN_PLUS:
         ts[0] = pop_token(ts[0]);
-        b = parse_expression(ts);
-        return binary_tree(init_ast("+", TOKEN_PLUS), a, b);
+        right_child = parse_expression(ts);
+        return binary_tree(init_ast("+", TOKEN_PLUS), left_child, right_child);
+      case TOKEN_MINUS:
+        ts[0] = pop_token(ts[0]);
+        right_child = parse_expression(ts);
+        return binary_tree(init_ast("-", TOKEN_PLUS), left_child, right_child);
       case TOKEN_VAR:
       case TOKEN_NUMBER:
-        return a;
+      case TOKEN_NEWLINE: // This will occur bc factor pops id i.e. newline
+        return left_child;
       default:
         fprintf(stderr, "[PARSER1]: Unrecognized token: `%s`\nExiting\n",
             ts[0]->current->t_literal);
         exit(1);
     }
   } else {
-    return a;
+    return left_child;
   }
 }
 

@@ -40,16 +40,17 @@ int main(void) {
   /**
    * Front end functions relating to CFG
    */
-  lexer * lex = init_lexer("x + 123.123\n");
+  lexer * lex = init_lexer("x + 123.123 - 42 - 12\n");
   token_stack * tok_list = lex_source(lex);
-  token_stack_dump_debug(tok_list);
+  token_stack * rev = reverse_stack(&tok_list);
+  token_stack_dump_debug(rev);
 
-  ast * abstree = parse_expression(&tok_list);
+  ast * abstree = parse_expression(&rev);
   ast_dump_debug(abstree);
   free_ast(abstree);
 
-  if(tok_list)
-    while(tok_list) tok_list = pop_token(tok_list);
+  if(rev)
+    while(rev) rev = pop_token(rev);
   free_lexer(lex);
   return 0;
 }

@@ -53,6 +53,19 @@ void token_stack_dump_debug(token_stack * ts) {
   printf("--\n");
 }
 
+token_stack * reverse_stack(token_stack ** bts) {
+  token_stack * fts = init_token_stack(
+      init_token(bts[0]->current->t_literal, bts[0]->current->type)
+      );
+  bts[0] = pop_token(bts[0]);
+  while(bts[0]) {
+    fts = push_token(
+        fts, init_token(bts[0]->current->t_literal, bts[0]->current->type));
+    bts[0] = pop_token(bts[0]);
+  }
+  return fts;
+}
+
 /**
  * This function pops a token from the stack. Note that if the last token is
  * popped then the return value is NULL

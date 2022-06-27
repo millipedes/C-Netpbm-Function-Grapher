@@ -19,6 +19,7 @@ typedef struct TOKEN_STACK_T {
 token_stack * init_token_stack(token * ct);
 token_stack * push_token(token_stack * ts, token * new_current);
 void token_stack_dump_debug(token_stack * ts);
+token_stack * reverse_stack(token_stack ** bts);
 token_stack * pop_token(token_stack * ts);
 
 #endif
