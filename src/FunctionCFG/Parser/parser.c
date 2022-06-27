@@ -15,18 +15,30 @@
  */
 ast * parse_expression(token_stack ** ts) {
   while(ts[0]->current->type == TOKEN_NEWLINE) ts[0] = pop_token(ts[0]);
-  switch(ts[0]->current->type) {
-    case TOKEN_NUMBER:
-      return parse_term(ts);
-    default:
-      fprintf(stderr, "[PARSER1]: Unrecognized token: `%s`\nExiting\n",
-          ts[0]->current->t_literal);
-      exit(1);
+  ast * a = parse_term(ts);
+  ast * b;
+  if(ts[0]) {
+    switch(ts[0]->current->type) {
+      case TOKEN_PLUS:
+        ts[0] = pop_token(ts[0]);
+        b = parse_expression(ts);
+        return binary_tree(init_ast("+", TOKEN_PLUS), a, b);
+      case TOKEN_VAR:
+      case TOKEN_NUMBER:
+        return a;
+      default:
+        fprintf(stderr, "[PARSER1]: Unrecognized token: `%s`\nExiting\n",
+            ts[0]->current->t_literal);
+        exit(1);
+    }
+  } else {
+    return a;
   }
 }
 
 ast * parse_term(token_stack ** ts) {
   switch(ts[0]->current->type) {
+    case TOKEN_VAR:
     case TOKEN_NUMBER:
       return parse_factor(ts);
     default:
@@ -44,6 +56,7 @@ ast * parse_term(token_stack ** ts) {
 ast * parse_factor(token_stack ** ts) {
   ast * tmp;
   switch(ts[0]->current->type) {
+    case TOKEN_VAR:
     case TOKEN_NUMBER:
       tmp = init_ast(ts[0]->current->t_literal, ts[0]->current->type);
       ts[0] = pop_token(ts[0]);

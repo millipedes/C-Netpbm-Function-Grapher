@@ -40,7 +40,7 @@ int main(void) {
   /**
    * Front end functions relating to CFG
    */
-  lexer * lex = init_lexer("123.132\n");
+  lexer * lex = init_lexer("x + 123.123 + 123\n");
   token_stack * tok_list = lex_source(lex);
   token_stack_dump_debug(tok_list);
 
