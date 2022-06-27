@@ -31,6 +31,7 @@ ast * init_ast(char * t_literal, token_type type) {
 void ast_dump_debug(ast * abstree) {
   printf("AST\n");
   token_dump_debug(abstree->value);
+  printf("ast no children: %d\n", abstree->no_children);
   for(int i = 0; i < abstree->no_children; i++) {
     ast_dump_debug(abstree->children[i]);
   }
@@ -51,6 +52,7 @@ void free_ast(ast * abstree) {
         if(abstree->children[i])
           free_ast(abstree->children[i]);
       }
+      free(abstree->children);
     }
     free(abstree);
   }
