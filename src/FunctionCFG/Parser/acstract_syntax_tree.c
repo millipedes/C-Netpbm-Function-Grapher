@@ -33,9 +33,31 @@ void ast_dump_debug(ast * abstree) {
   token_dump_debug(abstree->value);
   printf("ast no children: %d\n", abstree->no_children);
   for(int i = 0; i < abstree->no_children; i++) {
+    printf("Child %d:\n", i);
     ast_dump_debug(abstree->children[i]);
   }
-  printf("--\n");
+  printf("**\n");
+}
+
+/**
+ * This function is used for debugging abstract syntax trees
+ * @param abstree - the abstract syntax tree to be debugged
+ * @return    N/a
+ */
+void ast_pretty_print(ast * abstree) {
+  printf("AST\n");
+  printf("Token Value: `%s`, Token Type: %d, No Children: %d\n",
+      abstree->value->t_literal, abstree->value->type, abstree->no_children);
+  printf("Children\n");
+  for(int i = 0; i < abstree->no_children; i++) {
+    printf("Token Value: `%s`, Token Type: %d, No Children: %d\n",
+        abstree->children[i]->value->t_literal, abstree->children[i]->value->type,
+        abstree->children[i]->no_children);
+  }
+  printf("End of Children\n\n");
+  for(int i = 0; i < abstree->no_children; i++) {
+    ast_pretty_print(abstree->children[i]);
+  }
 }
 
 /**

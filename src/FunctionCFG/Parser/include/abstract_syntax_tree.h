@@ -18,6 +18,7 @@ typedef struct AST_T {
 } ast;
 
 ast * init_ast(char * t_literal, token_type type);
+void ast_pretty_print(ast * abstree);
 void ast_dump_debug(ast * abstree);
 void free_ast(ast * abstree);
 

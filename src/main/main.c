@@ -40,13 +40,12 @@ int main(void) {
   /**
    * Front end functions relating to CFG
    */
-  lexer * lex = init_lexer("x + 123.123 - 42 - 12\n");
+  lexer * lex = init_lexer("x * 123.123 * 32 + 10\n");
   token_stack * tok_list = lex_source(lex);
   token_stack * rev = reverse_stack(&tok_list);
-  token_stack_dump_debug(rev);
 
   ast * abstree = parse_expression(&rev);
-  ast_dump_debug(abstree);
+  ast_pretty_print(abstree);
   free_ast(abstree);
 
   if(rev)

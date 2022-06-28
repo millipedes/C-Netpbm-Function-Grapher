@@ -26,7 +26,7 @@ ast * parse_expression(token_stack ** ts) {
       case TOKEN_MINUS:
         ts[0] = pop_token(ts[0]);
         right_child = parse_expression(ts);
-        return binary_tree(init_ast("-", TOKEN_PLUS), left_child, right_child);
+        return binary_tree(init_ast("-", TOKEN_MINUS), left_child, right_child);
       case TOKEN_VAR:
       case TOKEN_NUMBER:
       case TOKEN_NEWLINE: // This will occur bc factor pops id i.e. newline
@@ -42,14 +42,27 @@ ast * parse_expression(token_stack ** ts) {
 }
 
 ast * parse_term(token_stack ** ts) {
-  switch(ts[0]->current->type) {
-    case TOKEN_VAR:
-    case TOKEN_NUMBER:
-      return parse_factor(ts);
-    default:
-      fprintf(stderr, "[PARSER2]: Unrecognized token: `%s`\nExiting\n",
-          ts[0]->current->t_literal);
-      exit(1);
+  ast * left_child = NULL;
+  ast * right_child = NULL;
+  if(ts[0]) {
+    left_child = parse_factor(ts);
+    switch(ts[0]->current->type) {
+      case TOKEN_VAR:
+      case TOKEN_NUMBER:
+        return left_child;
+      case TOKEN_MULT:
+        ts[0] = pop_token(ts[0]);
+        right_child = parse_term(ts);
+        return binary_tree(init_ast("*", TOKEN_MULT), left_child, right_child);
+      case TOKEN_DIV:
+        ts[0] = pop_token(ts[0]);
+        right_child = parse_term(ts);
+        return binary_tree(init_ast("/", TOKEN_DIV), left_child, right_child);
+      default:
+        return left_child;
+    }
+  } else {
+    return NULL;
   }
 }
 
@@ -59,7 +72,7 @@ ast * parse_term(token_stack ** ts) {
  * @return abstree - the new abstract syntax tree from the factor
  */
 ast * parse_factor(token_stack ** ts) {
-  ast * tmp;
+  ast * tmp = NULL;
   switch(ts[0]->current->type) {
     case TOKEN_VAR:
     case TOKEN_NUMBER:
