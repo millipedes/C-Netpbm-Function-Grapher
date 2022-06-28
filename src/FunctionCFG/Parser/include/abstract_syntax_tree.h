@@ -1,10 +1,10 @@
 /**
- * @file ast.c
- * @brief This file contains the function definitions for ast.c
+ * @file   ast.c
+ * @brief  This file contains the function definitions for ast.c
  * @author Matthew C. Lindeman
- * @date May 26, 2022
- * @bug None known
- * @todo Nothing
+ * @date   May 26, 2022
+ * @bug    None known
+ * @todo   Nothing
  */
 #ifndef AST_H
 #define AST_H

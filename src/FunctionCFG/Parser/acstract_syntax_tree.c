@@ -1,11 +1,11 @@
 /**
- * @file   ast.c
- * @brief  This file contains the functions relating to making/maintiaing the
+ * @file    ast.c
+ * @brief   This file contains the functions relating to making/maintiaing the
  * abstract syntax tree
- * @author Matthew C. Lindeman
- * @date   June 19, 2022
- * @bug    None known
- * @todo   Nothing
+ * @author  Matthew C. Lindeman
+ * @date    June 19, 2022
+ * @bug     None known
+ * @todo    Nothing
  */
 #include "include/abstract_syntax_tree.h"
 

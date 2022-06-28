@@ -82,12 +82,17 @@ ast * parse_term(token_stack ** ts) {
  */
 ast * parse_factor(token_stack ** ts) {
   ast * tmp = NULL;
+  ast * right_child = NULL;
   switch(ts[0]->current->type) {
     case TOKEN_VAR:
     case TOKEN_NUMBER:
       tmp = init_ast(ts[0]->current->t_literal, ts[0]->current->type);
       ts[0] = pop_token(ts[0]);
-      return tmp;
+      if(ts[0]->current->type != TOKEN_POWER)
+        return tmp;
+      ts[0] = pop_token(ts[0]);
+      right_child = parse_factor(ts);
+      return binary_tree(init_ast("^", TOKEN_POWER), tmp, right_child);
     case TOKEN_L_PAREN:
       ts[0] = pop_token(ts[0]);
       tmp = parse_expression(ts);
