@@ -2,14 +2,15 @@
  * @file   parser.c
  * @brief  This file contains the functions required for parsing input
  * @author Matthew C. Lindeman
- * @date   June 19, 2022
+ * @date   June 27, 2022
  * @bug    None known
  * @todo   Nothing
  */
 #include"include/parser.h"
 
 /**
- * This function parses an expression
+ * This function parses an expression from a token stack. Essentially anything
+ * that is a mathematical term (in the sense of operands of +/-).
  * @param  tok_list - the token stack to be parsed
  * @return       .\ - the abstract syntax tree of the expression
  */
@@ -27,6 +28,7 @@ ast * parse_expression(token_stack ** ts) {
         ts[0] = pop_token(ts[0]);
         right_child = parse_expression(ts);
         return binary_tree(init_ast("-", TOKEN_MINUS), left_child, right_child);
+      case TOKEN_R_PAREN:
       case TOKEN_VAR:
       case TOKEN_NUMBER:
       case TOKEN_NEWLINE: // This will occur bc factor pops id i.e. newline
@@ -41,6 +43,12 @@ ast * parse_expression(token_stack ** ts) {
   }
 }
 
+/**
+ * This function parses a term from the token stack.  Essentially just anything
+ * that is a mathematical coefficient.
+ * @param  ts - the token stack from which the term is read
+ * @return .\ - the appropriate abstract syntrax tree to model the input
+ */
 ast * parse_term(token_stack ** ts) {
   ast * left_child = NULL;
   ast * right_child = NULL;
@@ -67,9 +75,10 @@ ast * parse_term(token_stack ** ts) {
 }
 
 /**
- * This function is meant to parse a factor
- * @param tok_list - the token stack to be parsed
- * @return abstree - the new abstract syntax tree from the factor
+ * This function is meant to parse a factor, just either a number/variable or an
+ * expression within a parenthesis
+ * @param   ts - the token stack to be parsed
+ * @return tmp - the new abstract syntax tree from the factor
  */
 ast * parse_factor(token_stack ** ts) {
   ast * tmp = NULL;
@@ -79,6 +88,16 @@ ast * parse_factor(token_stack ** ts) {
       tmp = init_ast(ts[0]->current->t_literal, ts[0]->current->type);
       ts[0] = pop_token(ts[0]);
       return tmp;
+    case TOKEN_L_PAREN:
+      ts[0] = pop_token(ts[0]);
+      tmp = parse_expression(ts);
+      if(ts[0]->current->type == TOKEN_R_PAREN) {
+        ts[0] = pop_token(ts[0]);
+        return tmp;
+      } else {
+        fprintf(stderr, "[PARSER4]: UnMatched Parenthesis\nExiting\n");
+        exit(1);
+      }
     default:
       fprintf(stderr, "[PARSER3]: Unrecognized token: `%s`\nExiting\n",
           ts[0]->current->t_literal);

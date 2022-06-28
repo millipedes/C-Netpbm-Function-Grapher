@@ -2,7 +2,7 @@
  * @file   parser.h
  * @brief  This file contains the function definitions for parser.c
  * @author Matthew C. Lindeman
- * @date   June 19, 2022
+ * @date   June 27, 2022
  * @bug    None known
  * @todo   Nothing
  */
