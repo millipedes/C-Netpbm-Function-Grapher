@@ -54,6 +54,45 @@ void write_rel_to_canvas(canvas * can, graph_scale * gs, double rel(double),
   }
 }
 
+void write_ast_to_canvas(canvas * can, graph_scale * gs, ast * abstree,
+    color * col, double delta) {
+  double y = 0;
+  int x_index = 0;
+  int y_index = 0;
+  for(double i = gs->coord_axes[0]->axis_min;
+      i < gs->coord_axes[0]->axis_max;
+      i += delta) {
+      y = evaluate_tree(abstree, i);
+      // See y notes for why negative minimums require an if
+      if(gs->coord_axes[0]->axis_min >= 0)
+        x_index = map_scale_to_canvas(can, gs, X, i);
+      else
+        x_index
+          = map_scale_to_canvas(can, gs, X, i - gs->coord_axes[0]->axis_min);
+      /**
+       * Because the canvas y is upside down (i.e. zero is top not bottom) we
+       * need to invert the y index values (hence the can->height - ...).
+       *
+       * If there are negative values in the user defined graph_scale then we
+       * need to add the magnitude of the negative value as map_scale_to_canvas
+       * expects only natural number scalar magnitudes for the mapping (think
+       * about how to map two line segments to one another, that is the method
+       * used).
+       */
+      if(gs->coord_axes[1]->axis_min >= 0)
+        y_index = can->height - map_scale_to_canvas(can, gs, Y, y);
+      else
+        y_index = can->height -
+          (map_scale_to_canvas(can, gs, Y, y - gs->coord_axes[1]->axis_min));
+      if(y < gs->coord_axes[1]->axis_max
+          && y >= gs->coord_axes[1]->axis_min
+          && x_index >= 0 && x_index < can->width
+          && y_index >= 0 && y_index < can->height)
+        if(is_color_white(can->pixel_instance[y_index][x_index]->pix_color))
+          change_color(can->pixel_instance[y_index][x_index]->pix_color, col);
+  }
+}
+
 /**
  * This function takes a quantity in the scale of the relation and maps it to a
  * canvas index

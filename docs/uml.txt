@@ -79,6 +79,10 @@ package GraphingPackage {
     {method} + int map_scale_to_canvas(canvas *, graph_scale *, axis, double)
   }
 
+  class file_io {
+    {method} + write_canvas_to_file(char *, canvas *)
+  }
+
   class color {
      {field} + r : int
      {field} + g : int

@@ -5,8 +5,50 @@
  * @date   June 27, 2022
  * @bug    None known
  * @todo   Nothing
+ * @NOTE   Its worth mentioning that the advantage to using a token_stack as
+ * opposed to a list is that with a list it is very difficult to properly index
+ * things i.e. we use a stack. However, we need to perminently modify the
+ * address of the stack itself thus we pass the address of the stack in to be
+ * modified instead of the value of the stack (i.e. why there are a bunch of
+ * double pointers.  Since we only have one stack, we will only ever index the
+ * fist element of the double pointer).
  */
 #include"include/parser.h"
+
+/**
+ * This function evaluates an abstract syntax tree (i.e. the idea is to pass
+ * this into a write_ast_to_canvas s.t. it can eval at each step)
+ * @param abstree - the abstract syntax tree to be evaluated
+ * @param       x - the variable value
+ * @return     .\ - the value of that level of the ast
+ */
+double evaluate_tree(ast * abstree, double x) {
+  switch(abstree->value->type) {
+    case TOKEN_VAR:
+      return x;
+    case TOKEN_NUMBER:
+      return atof(abstree->value->t_literal);
+    case TOKEN_PLUS:
+      return addition(evaluate_tree(abstree->children[0], x),
+          evaluate_tree(abstree->children[1], x));
+    case TOKEN_MINUS:
+      return subtraction(evaluate_tree(abstree->children[0], x),
+          evaluate_tree(abstree->children[1], x));
+    case TOKEN_MULT:
+      return multiplication(evaluate_tree(abstree->children[0], x),
+          evaluate_tree(abstree->children[1], x));
+    case TOKEN_DIV:
+      return division(evaluate_tree(abstree->children[0], x),
+          evaluate_tree(abstree->children[1], x));
+    case TOKEN_POWER:
+      return pow(evaluate_tree(abstree->children[0], x),
+          evaluate_tree(abstree->children[1], x));
+    default:
+      fprintf(stderr, "`%s`passed to evaluate_tree?\nExiting\n",
+          token_type_to_string(abstree->value->type));
+      exit(1);
+  }
+}
 
 /**
  * This function parses an expression from a token stack. Essentially anything

@@ -9,8 +9,11 @@
 #ifndef PAR_H
 #define PAR_H
 
+#include <math.h>
 #include "abstract_syntax_tree.h"
+#include "../../EvaluationFunctions/include/double_basic_arithmetic.h"
 
+double evaluate_tree(ast * abstree, double x);
 ast * parse_expression(token_stack ** ts);
 ast * parse_high_precedence_operator(token_stack ** ts);
 ast * parse_term(token_stack ** ts);
