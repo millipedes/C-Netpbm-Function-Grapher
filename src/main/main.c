@@ -40,7 +40,7 @@ int main(void) {
   /**
    * Front end functions relating to CFG
    */
-  lexer * lex = init_lexer("2 + x^2 + 2\n");
+  lexer * lex = init_lexer("(2 + x)^(2 * 4 + 1) + 2\n");
   token_stack * tok_list = lex_source(lex);
   token_stack * rev = reverse_stack(&tok_list);
 

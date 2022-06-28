@@ -98,7 +98,11 @@ ast * parse_factor(token_stack ** ts) {
       tmp = parse_expression(ts);
       if(ts[0]->current->type == TOKEN_R_PAREN) {
         ts[0] = pop_token(ts[0]);
-        return tmp;
+        if(ts[0]->current->type != TOKEN_POWER)
+          return tmp;
+        ts[0] = pop_token(ts[0]);
+        right_child = parse_factor(ts);
+        return binary_tree(init_ast("^", TOKEN_POWER), tmp, right_child);
       } else {
         fprintf(stderr, "[PARSER4]: UnMatched Parenthesis\nExiting\n");
         exit(1);

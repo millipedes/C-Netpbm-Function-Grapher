@@ -98,11 +98,10 @@ package FunctionCFG {
        {field} + curr_index : int
        {field} + c : char
       {method} + lexer * init_lexer(char *)
-      {method} + token ** lex_source(lexer *)
+      {method} + token_stack * lex_source(lexer *)
       {method} + token * lex_next_token(lexer *)
       {method} + token * lex_number(lexer *)
-      {method} + token * lex_word(lexer *)
-      {method} + token * lex_string(lexer *)
+      {method} + token * lex_fn_or_var(lexer *)
       {method} + void lex_advance(lexer *)
       {method} + void lex_whitespace(lexer *)
       {method} + void free_lexer(lexer *)
@@ -111,10 +110,12 @@ package FunctionCFG {
 
   package Parser {
     class parser {
-      {method} + ast * parse_expression(token **);
-      {method} + ast * parse_factor(token **);
-      {method} + ast * binary_tree(ast *, ast *, ast *);
-      {method} + ast * unary_tree(ast *, ast *);
+      {method} + ast * parse_expression(token_stack **)
+      {method} + ast * parse_high_precedence_operator(token_stack **)
+      {method} + ast * parse_term(token_stack **)
+      {method} + ast * parse_factor(token_stack **)
+      {method} + ast * binary_tree(ast *, ast *, ast *)
+      {method} + ast * unary_tree(ast *, ast *)
     }
 
     class abstract_syntax_tree {
@@ -122,6 +123,7 @@ package FunctionCFG {
        {field} + children : abstract_syntax_tree **
        {field} + no_children : int
       {method} + ast * init_ast(char *, token_type)
+      {method} + void ast_pretty_print(ast *)
       {method} + void ast_dump_debug(ast *)
       {method} + void free_ast(ast *)
     }
@@ -132,8 +134,21 @@ package FunctionCFG {
        {field} + t_literal : char *
        {field} + type : token_type
       {method} + token * init_token(char *, token_type)
+      {method} + token ** init_token_list(void)
+      {method} + token ** add_token_to_list(token **, token *, int)
       {method} + void token_dump_debug(token *)
       {method} + void free_token(token *)
+      {method} + void free_token_list(token **)
+    }
+
+    class token_stack {
+       {field} + current : token *
+       {field} + prev : token_stack *
+      {method} + token_stack * init_token_stack(token *)
+      {method} + token_stack * push_token(token_stack *, token *)
+      {method} + void token_stack_dump_debug(token_stack *)
+      {method} + token_stack * reverse_stack(token_stack **)
+      {method} + token_stack * pop_token(token_stack *)
     }
 
     enum token_type {
@@ -146,6 +161,7 @@ package FunctionCFG {
       TOKEN_COMMA
       TOKEN_SUCH_THAT
       TOKEN_NEWLINE
+      {method} + token_type_to_string(token_type)
     }
   }
 }
@@ -164,9 +180,10 @@ axis_tic_marks "2" <-up-o "1" graph_scale
 coord_axis     "2" <-up-o "1" graph_scale
 graph_border       <-up-o     graph_scale
 
-token o--> token_type
+token       o--> token_type
+token_stack o--> token
 
 parser --> abstract_syntax_tree
-parser --> token
+parser --> token_stack
 
 @enduml
