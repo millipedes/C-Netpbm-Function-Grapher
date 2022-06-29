@@ -16,8 +16,11 @@ image files of the function(s) that the user specifies in any color in the rgb
 channel.
 
 The user can specify a set of functions and graph window parameters via an input
-file that this  utility reads then produces an output file. See the Use and
-Installation/Building sections for more details.
+file that this  utility reads then produces an output file. See the
+[Use](https://github.com/millipedes/C-Netpbm-Function-Grapher#exclamation-use)
+and
+[Installation/Building](https://github.com/millipedes/C-Netpbm-Function-Grapher#minidisc-installationbuilding)
+sections for more details.
 
 This program is free of memory leaks when fed an expected input file as verified
 using several test input files and valgrind.
