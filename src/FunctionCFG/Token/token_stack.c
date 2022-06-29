@@ -53,6 +53,11 @@ void token_stack_dump_debug(token_stack * ts) {
   printf("--\n");
 }
 
+/**
+ * This function reverses a token_stack and frees the initial stack
+ * @param  bts - the backwards-token-stack to be reversed
+ * @return fts - the forwards-token-stack that is bts reversed
+ */
 token_stack * reverse_stack(token_stack ** bts) {
   token_stack * fts = init_token_stack(
       init_token(bts[0]->current->t_literal, bts[0]->current->type)

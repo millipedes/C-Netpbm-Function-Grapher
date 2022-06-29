@@ -134,7 +134,7 @@ token * lex_fn_or_var(lexer * l) {
   size_t len = 0;
   int period_flag = 0;
   int start_index = l->curr_index;
-  while(isalpha(l->c)) {
+  while(isalpha(l->c) || l->c == '_') {
     lex_advance(l);
     if(l->c == '.' && period_flag == 0) {
       lex_advance(l);

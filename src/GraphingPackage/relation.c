@@ -54,6 +54,16 @@ void write_rel_to_canvas(canvas * can, graph_scale * gs, double rel(double),
   }
 }
 
+/**
+ * This funciton writes a function to a canvas for a given abstract syntax tree.
+ * @param     can - the canvas to be written
+ * @param      gs - the graph scale corresponding to the given canvas
+ * @param abstree - the given abstract syntax tree function to write
+ * @param     col - the color of the function on the graph
+ * @param   delta - the increment to write the relation with (smaller -> more
+ * definition on graphs)
+ * @return    N/a
+ */
 void write_ast_to_canvas(canvas * can, graph_scale * gs, ast * abstree,
     color * col, double delta) {
   double y = 0;

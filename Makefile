@@ -22,6 +22,12 @@ vim:
 run:
 	$(EXEFILE)
 
+io-run:
+	./bin/main docs/example_graph_set/example_graph.txt
+
+io-memcheck:
+	valgrind ./bin/main docs/example_graph_set/example_graph.txt --leak-check=full --read-var-info
+
 debug:
 	gdb -q $(EXEFILE)
 
