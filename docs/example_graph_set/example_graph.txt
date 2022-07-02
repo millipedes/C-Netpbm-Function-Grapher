@@ -4,9 +4,17 @@ FILE_NAME :: test.ppm
   X_MAX   ::  10
   Y_MAX   ::  10
   COLOR   :: 0,35,66
+  COLOR   :: 255,0,0
+  COLOR   :: 0,255,0
+  COLOR   :: 0,0,255
+  COLOR   :: 255,0,255
+  COLOR   :: 255,255,0
 END
 FUNCS
   sin(x^2 + 1)
   cos(x)
   tan(x)
+  (x + 1)^(x + 1)
+  (x - 1)^2 + 1
+  (x + 1)^3 - 1
 END

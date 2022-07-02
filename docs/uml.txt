@@ -181,6 +181,12 @@ package FunctionCFG {
   }
 }
 
+' file_io related
+file_io --> lexer
+file_io --> graph_scale
+file_io --> canvas
+file_io --> parser
+
 ' The arrows to color
 pixel        o--> color
 graph_border o--> color
