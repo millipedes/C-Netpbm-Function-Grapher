@@ -57,24 +57,19 @@ void canvas_dump_debug(canvas * can) {
 void write_rectangle(canvas * can, int cen_x, int cen_y, int h, int w,
     color * col) {
   // Start top until the bottom
-  for(int i = (cen_y - (h / 2)); i <= (cen_y + (h / 2)); i++) {
+  for(int i = (cen_y - (h / 2)); i <= (cen_y + (h / 2)); i++)
     // Start at the left until the right
-    for(int j = (cen_x - (w / 2)); j <= (cen_x + (w / 2)); j++) {
+    for(int j = (cen_x - (w / 2)); j <= (cen_x + (w / 2)); j++)
       if(i >= 0 && j >= 0 && i < can->height && j < can->width)
         change_color(can->pixel_instance[i][j]->pix_color, col);
-    }
-  }
 }
 
-void letter_print_canvas(canvas * can) {
-  printf("Canvas:\n");
-  for(int i = 0; i < can->height; i++) {
-    for(int j = 0; j < can->width; j++)
-      printf("(%d, %d, %d) ", can->pixel_instance[i][j]->pix_color->r,
-          can->pixel_instance[i][j]->pix_color->g,
-          can->pixel_instance[i][j]->pix_color->b);
-    printf("\n");
-  }
+void write_rectangle_from_ul(canvas * can, int left_x, int up_y, int h, int w,
+    color * col) {
+  for(int i = up_y; i <= (up_y + h); i++)
+    for(int j = left_x; j <= (left_x + w); j++)
+      if(i >= 0 && j >= 0 && i < can->height && j < can->width)
+        change_color(can->pixel_instance[i][j]->pix_color, col);
 }
 
 /**
@@ -85,14 +80,12 @@ void letter_print_canvas(canvas * can) {
 void free_canvas(canvas * can) {
   if(can) {
     if(can->pixel_instance) {
-      for(int i = 0; i < can->height;  i++) {
+      for(int i = 0; i < can->height;  i++)
         if(can->pixel_instance[i]) {
-          for(int j = 0; j < can->width; j++) {
+          for(int j = 0; j < can->width; j++)
             if(can->pixel_instance[i][j])
               free_pixel(can->pixel_instance[i][j]);
-          }
           free(can->pixel_instance[i]);
-        }
       }
       free(can->pixel_instance);
     }

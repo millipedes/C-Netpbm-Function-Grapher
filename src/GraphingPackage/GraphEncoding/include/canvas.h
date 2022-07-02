@@ -22,7 +22,8 @@ canvas * init_canvas(int height, int width);
 void canvas_dump_debug(canvas * can);
 void write_rectangle(canvas * can, int cen_x, int cen_y, int h, int w,
     color * col);
-void letter_print_canvas(canvas * can);
+void write_rectangle_from_ul(canvas * can, int left_x, int up_y, int h, int w,
+    color * col);
 void free_canvas(canvas * can);
 
 #endif

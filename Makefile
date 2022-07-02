@@ -3,20 +3,23 @@ OCFILES=$(wildcard src/*/*.c)
 OHFILES=$(wildcard src/*/include/*.h)
 TCFILES=$(wildcard src/*/*/*.c)
 THFILES=$(wildcard src/*/*/include/*.h)
+RCFILES=$(wildcard src/*/*/*/*.c)
+RHFILES=$(wildcard src/*/*/*/include/*.h)
 OOBJFILES=$(OCFILES:.c=.o)
 TOBJFILES=$(TCFILES:.c=.o)
+ROBJFILES=$(RCFILES:.c=.o)
 
 EXEFILE=bin/main
 INFILE=docs/example_graph_set/example_graph.txt
 
-all:$(OOBJFILES) $(TOBJFILES)
-	$(CC) $(OOBJFILES) $(TOBJFILES) -o $(EXEFILE) -lm
+all:$(OOBJFILES) $(TOBJFILES) $(ROBJFILES)
+	$(CC) $(OOBJFILES) $(TOBJFILES) $(ROBJFILES) -o $(EXEFILE) -lm
 
-%.o: %.c $(THFILES)%.h $(OHFILES)%.h
-	$(CC) -c $(TCFILES) $(OCFILES) $< -o $@ -lm
+%.o: %.c $(THFILES)%.h $(OHFILES)%.h $(RHFILES)%.h
+	$(CC) -c $(TCFILES) $(OCFILES) $(RCFILES) $< -o $@ -lm
 
 vim:
-	nvim $(OCFILES) $(TCFILES)
+	nvim $(OCFILES) $(TCFILES) $(RCFILES)
 
 run:
 	$(EXEFILE) $(INFILE)
@@ -43,4 +46,4 @@ git-update:
 	git push origin main
 
 clean:
-	rm $(OOBJFILES) $(TOBJFILES)
+	rm $(OOBJFILES) $(TOBJFILES) $(ROBJFILES)

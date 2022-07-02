@@ -19,5 +19,6 @@
 #define GPRAH_TIC_LARGE 30   // The large dimension of the axis tic marks
 #define QTY_TIC_MARKS   10   // The quantity of tic marks to be made
 #define GRAPH_BORDER    10   // The width of the graph border
+#define NUMR_WIDTH      15   // The width of monospace numerics
 
 #endif

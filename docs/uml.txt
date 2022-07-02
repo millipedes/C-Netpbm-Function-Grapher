@@ -9,7 +9,6 @@ package GraphingPackage {
       {method} canvas * init_canvas(int height, int width)
       {method} void canvas_dump_debug(canvas * can)
       {method} void write_rectangle(canvas *, int, int, int, int, color * col)
-      {method} void letter_print_canvas(canvas * can)
       {method} void free_canvas(canvas * can)
     }
 
@@ -65,6 +64,29 @@ package GraphingPackage {
       {method} + void write_gb_to_canvas(canvas *, graph_border *)
       {method} + void graph_border_dump_debug(graph_border *)
       {method} + void free_graph_border(graph_border *)
+    }
+
+    class numerics {
+       {field} + scale_string : char *
+       {field} + numeric_col : color *
+       {field} + current_index : int
+       {field} + height : int
+       {field} + width : int
+       {field} + left_x : int
+       {field} + up_y : int
+      {method} + numeric * init_numer(double, int, int, int)
+      {method} + void write_numeric_to_canvas(numeric *, canvas *)
+      {method} + void write_one_to_canvas(numeric *, canvas *)
+      {method} + void write_two_to_canvas(numeric *, canvas *)
+      {method} + void write_three_to_canvas(numeric *, canvas *)
+      {method} + void write_four_to_canvas(numeric *, canvas *)
+      {method} + void write_five_to_canvas(numeric *, canvas *)
+      {method} + void write_six_to_canvas(numeric *, canvas *)
+      {method} + void write_seven_to_canvas(numeric *, canvas *)
+      {method} + void write_eight_to_canvas(numeric *, canvas *)
+      {method} + void write_nine_to_canvas(numeric *, canvas *)
+      {method} + void write_period_to_canvas(numeric *, canvas *)
+      {method} + void free_numeric(numeric *)
     }
 
     enum axis {
@@ -186,6 +208,7 @@ file_io --> lexer
 file_io --> graph_scale
 file_io --> canvas
 file_io --> parser
+file_io --> relation
 
 ' The arrows to color
 pixel        o--> color
@@ -200,6 +223,7 @@ coord_axis         o-->       axis
 axis_tic_marks "2" <-up-o "1" graph_scale
 coord_axis     "2" <-up-o "1" graph_scale
 graph_border       <-up-o     graph_scale
+numerics           <-up-o     graph_scale
 
 token       o--> token_type
 token_stack o--> token
