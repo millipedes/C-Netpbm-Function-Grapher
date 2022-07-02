@@ -44,28 +44,17 @@ recommend either:
 
 If you would like to install a viewer:
 ```
-  sudo apt install feh
+  sudo apt install feh     (For Debian based i.e. Ubuntu, mint, etc.)
+  sudo pacman -S feh       (For arch based i.e. Manjaro, Endevour, Garuda etc.)
+  sudo xbps-install -S feh (Void)
 ```
-OR
-```
-  sudo pacman -S feh
-```
-OR
-```
-  sudo xbps-install -S feh
-```
-etc.
+And if you aren't on one of those distros I would imagine you are familiar with
+your package manager (alpine, kiss, etc.).
 
 If you want to install ImageMagick:
 ```
   sudo apt install imagemagick
-```
-OR
-```
   sudo pacman -S imagemagick
-```
-OR
-```
   sudo xbps-install -S imagemagick
 ```
 etc.
@@ -114,9 +103,10 @@ in the file when sent into the utility.
   FUNCS // Necessary Tag
     /**
      * In this block any number of functions can be specified.
-     * The valid operators are +,-,*,/
-     * The variable is whatever the user specifies so long as it contains
-     * english Latin characters or `_`'s
+     * The valid operators are +, -, *, /, sin, cos, tan, arcsin, arccos,
+       arctan, log (log is only base 2 at the moment)
+     * The variable is whatever (minus functions above) the user specifies so
+     * long as it contains english Latin characters or `_`'s
      */
     (x - 1)^2 + 1
     (x + 1)^3 - 1
@@ -135,6 +125,20 @@ After the project is built, it will take in the example file as input and output
 in the current directory the file test.ppm corresponding to the example input
 file.
 
+# Technical Notes
+This program uses the following context free grammar in BNF (I have left
+factored it for readability with respect to the parser) via an LL(1) parser to
+achieve the ability of reading in arbitrary user functions:
+```
+  E  -> T E'
+  E' -> (+|-) T E' | $\epsilon$
+  T  -> F T'
+  T' -> (*|/) F T' | $\epsilon$
+  F  -> (sin|cos|tan|arcsin|arccos|arctan|log)* (E) | __id__
+  
+  __id__ -> Variable | Double
+```
+
 # :turtle: Currently Needed Improvements
 The following features I will be implementing in the future:
 - Write a better file I/O to include the ability for one input file to write to
@@ -144,3 +148,9 @@ The following features I will be implementing in the future:
 - Make support for calculus functions (`der`/`int`) in the context free grammar.
 - Add support for vector fields.
 - 3d support (very bottom of the list).
+
+# Credits
+- Compilers: Principles, Techniques, & Tools Second Edition Aho, Lam, Sethi,
+  Ullman.  This book has been instrumental in my learning about interpreters,
+  additionally I used one of their CFG's as a basic building block for the CFG
+  used in this project.

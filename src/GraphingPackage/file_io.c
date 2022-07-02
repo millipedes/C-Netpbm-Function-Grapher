@@ -115,10 +115,10 @@ void write_outputs_from_input_cfg_file(char * file_name) {
     r = atoi(rev->current->t_literal);
     rev = pop_token(rev); // color
     rev = pop_token(rev); // comma
-    b = atoi(rev->current->t_literal);
+    g = atoi(rev->current->t_literal);
     rev = pop_token(rev); // color
     rev = pop_token(rev); // comma
-    g = atoi(rev->current->t_literal);
+    b = atoi(rev->current->t_literal);
 
     qty_colors++;
     if(!func_colors)

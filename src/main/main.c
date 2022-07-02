@@ -18,4 +18,5 @@ int main(int argc, char * argv[]) {
   }
   write_outputs_from_input_cfg_file(argv[1]); // Write the input file to output
                                               // file(s)
+  return 0;
 }

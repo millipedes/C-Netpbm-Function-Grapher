@@ -43,6 +43,20 @@ double evaluate_tree(ast * abstree, double x) {
     case TOKEN_POWER:
       return pow(evaluate_tree(abstree->children[0], x),
           evaluate_tree(abstree->children[1], x));
+    case TOKEN_SIN:
+      return sin(evaluate_tree(abstree->children[0], x));
+    case TOKEN_COS:
+      return cos(evaluate_tree(abstree->children[0], x));
+    case TOKEN_TAN:
+      return tan(evaluate_tree(abstree->children[0], x));
+    case TOKEN_ARC_SIN:
+      return asin(evaluate_tree(abstree->children[0], x));
+    case TOKEN_ARC_COS:
+      return acos(evaluate_tree(abstree->children[0], x));
+    case TOKEN_ARC_TAN:
+      return atan(evaluate_tree(abstree->children[0], x));
+    case TOKEN_LOG:
+      return log(evaluate_tree(abstree->children[0], x));
     default:
       fprintf(stderr, "`%s`passed to evaluate_tree?\nExiting\n",
           token_type_to_string(abstree->value->type));
@@ -149,9 +163,37 @@ ast * parse_factor(token_stack ** ts) {
         fprintf(stderr, "[PARSER4]: UnMatched Parenthesis\nExiting\n");
         exit(1);
       }
+    case TOKEN_SIN:
+      ts[0] = pop_token(ts[0]);
+      right_child = parse_factor(ts);
+      return unary_tree(init_ast("sin", TOKEN_SIN), right_child);
+    case TOKEN_COS:
+      ts[0] = pop_token(ts[0]);
+      right_child = parse_factor(ts);
+      return unary_tree(init_ast("cos", TOKEN_COS), right_child);
+    case TOKEN_TAN:
+      ts[0] = pop_token(ts[0]);
+      right_child = parse_factor(ts);
+      return unary_tree(init_ast("tan", TOKEN_TAN), right_child);
+    case TOKEN_ARC_SIN:
+      ts[0] = pop_token(ts[0]);
+      right_child = parse_factor(ts);
+      return unary_tree(init_ast("arcsin", TOKEN_ARC_SIN), right_child);
+    case TOKEN_ARC_COS:
+      ts[0] = pop_token(ts[0]);
+      right_child = parse_factor(ts);
+      return unary_tree(init_ast("arccos", TOKEN_ARC_COS), right_child);
+    case TOKEN_ARC_TAN:
+      ts[0] = pop_token(ts[0]);
+      right_child = parse_factor(ts);
+      return unary_tree(init_ast("arctan", TOKEN_ARC_TAN), right_child);
+    case TOKEN_LOG:
+      ts[0] = pop_token(ts[0]);
+      right_child = parse_factor(ts);
+      return unary_tree(init_ast("log", TOKEN_LOG), right_child);
     default:
-      fprintf(stderr, "[PARSER3]: Unrecognized token: `%s`\nExiting\n",
-          ts[0]->current->t_literal);
+      fprintf(stderr, "[PARSER3]: Unrecognized token: `%s` type: `%s`\nExiting\n",
+          ts[0]->current->t_literal, token_type_to_string(ts[0]->current->type));
       exit(1);
   }
 }

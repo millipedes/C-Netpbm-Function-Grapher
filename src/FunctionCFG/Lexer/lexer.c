@@ -131,6 +131,7 @@ token * lex_number(lexer * l) {
  * @return tmp - the token
  */
 token * lex_fn_or_var(lexer * l) {
+  token * tmp = NULL;
   size_t len = 0;
   int period_flag = 0;
   int start_index = l->curr_index;
@@ -145,8 +146,27 @@ token * lex_fn_or_var(lexer * l) {
   }
   char * result = calloc(len + 1, sizeof(char));
   memcpy(result, &l->src[start_index], len);
-  token * tmp = period_flag == 0 ? init_token(result, TOKEN_VAR)
-    : init_token(result, TOKEN_FILE_NAME);
+  if(!strncmp("sin", result, MAX_TOK_LEN))
+    tmp = init_token(result, TOKEN_SIN);
+  else if(!strncmp("cos", result, MAX_TOK_LEN))
+    tmp = init_token(result, TOKEN_COS);
+  else if(!strncmp("tan", result, MAX_TOK_LEN))
+    tmp = init_token(result, TOKEN_TAN);
+  else if(!strncmp("arcsin", result, MAX_TOK_LEN))
+    tmp = init_token(result, TOKEN_ARC_SIN);
+  else if(!strncmp("arccos", result, MAX_TOK_LEN))
+    tmp = init_token(result, TOKEN_ARC_COS);
+  else if(!strncmp("arctan", result, MAX_TOK_LEN))
+    tmp = init_token(result, TOKEN_ARC_TAN);
+  else if(!strncmp("log", result, MAX_TOK_LEN))
+    tmp = init_token(result, TOKEN_LOG);
+  else if(!period_flag)
+    tmp = init_token(result, TOKEN_VAR);
+  else
+    tmp = init_token(result, TOKEN_FILE_NAME);
+
+  // token * tmp = period_flag == 0 ? init_token(result, TOKEN_VAR)
+  //   : init_token(result, TOKEN_FILE_NAME);
   if(result) {
     free(result);
   }
