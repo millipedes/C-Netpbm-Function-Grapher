@@ -125,7 +125,7 @@ After the project is built, it will take in the example file as input and output
 in the current directory the file test.ppm corresponding to the example input
 file.
 
-# Technical Notes
+# :mag: Technical Notes
 This program uses the following context free grammar in BNF (I have left
 factored it for readability with respect to the parser) via an LL(1) parser to
 achieve the ability of reading in arbitrary user functions:
@@ -134,9 +134,9 @@ achieve the ability of reading in arbitrary user functions:
   E' -> (+|-) T E' | $\epsilon$
   T  -> F T'
   T' -> (*|/) F T' | $\epsilon$
-  F  -> (sin|cos|tan|arcsin|arccos|arctan|log)* (E) | __id__
+  F  -> (sin|cos|tan|arcsin|arccos|arctan|log)* (E) | id
   
-  __id__ -> Variable | Double
+  id -> Variable | Double
 ```
 
 # :turtle: Currently Needed Improvements
@@ -149,7 +149,7 @@ The following features I will be implementing in the future:
 - Add support for vector fields.
 - 3d support (very bottom of the list).
 
-# Credits
+# :fireworks: Credits
 - Compilers: Principles, Techniques, & Tools Second Edition Aho, Lam, Sethi,
   Ullman.  This book has been instrumental in my learning about interpreters,
   additionally I used one of their CFG's as a basic building block for the CFG
