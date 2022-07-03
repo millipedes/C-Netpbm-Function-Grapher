@@ -20,7 +20,7 @@
 numeric * init_numeric(double scale_qty, int height, int left_x, int up_y) {
   numeric * num = calloc(1, sizeof(struct NUMERIC_T));
   char buf[MAX_TOK_LEN];
-  sprintf(buf, "%.2f", scale_qty);
+  sprintf(buf, "%.3f", scale_qty);
   size_t len = strnlen(buf, MAX_TOK_LEN) + 1;
   num->scale_string = calloc(len, sizeof(char));
   strncpy(num->scale_string, buf, len);
@@ -267,10 +267,63 @@ void write_three_to_canvas(numeric * num, canvas * can) {
   num->current_index++;
 }
 
+/**
+ * This function writes a four to a canvas
+ * @param  num - the numeric from which the period comes from
+ * @param  can - the canvas to be written to
+ * @return N/a
+ */
 void write_four_to_canvas(numeric * num, canvas * can) {
+  double all_rect_height = num->height / 3;
+  double inter_rect_width = (double)num->width / 3.0;
+  double current_rect_y = num->up_y;
+  // Top Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index,
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  // Top Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Middle Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
   num->current_index++;
 }
 
+/**
+ * This function writes a five to a canvas
+ * @param  num - the numeric from which the period comes from
+ * @param  can - the canvas to be written to
+ * @return N/a
+ */
 void write_five_to_canvas(numeric * num, canvas * can) {
   double all_rect_height = num->height / 5;
   double inter_rect_width = (double)num->width / 3.0;
@@ -328,19 +381,260 @@ void write_five_to_canvas(numeric * num, canvas * can) {
 }
 
 void write_six_to_canvas(numeric * num, canvas * can) {
+  double all_rect_height = num->height / 5;
+  double inter_rect_width = (double)num->width / 3.0;
+  double current_rect_y = num->up_y;
+  // Top Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Top Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index,
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Middle Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Left Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index,
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  // Bottom Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
   num->current_index++;
 }
 
 void write_seven_to_canvas(numeric * num, canvas * can) {
+  double all_rect_height = num->height / 5;
+  double inter_rect_width = (double)num->width / 3.0;
+  double current_rect_y = num->up_y;
+  // Top Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Top Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Middle Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
   num->current_index++;
 }
 
 void write_eight_to_canvas(numeric * num, canvas * can) {
+  double all_rect_height = num->height / 5;
+  double inter_rect_width = (double)num->width / 3.0;
+  double current_rect_y = num->up_y;
+  // Top Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Top Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index,
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Middle Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index,
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  // Bottom Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
   num->current_index++;
 }
 
 void write_nine_to_canvas(numeric * num, canvas * can) {
-  num->current_index++;
+  double all_rect_height = num->height / 5;
+  double inter_rect_width = (double)num->width / 3.0;
+  double current_rect_y = num->up_y;
+  // Top Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Top Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index,
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Middle Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );  num->current_index++;
 }
 
 /**

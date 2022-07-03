@@ -29,6 +29,14 @@ graph_scale * init_graph_scale(axis_tic_marks * atm_x, axis_tic_marks * atm_y,
     gs->coord_axes[0] = ca_x;
     gs->coord_axes[1] = ca_y;
   }
+  // int x_tic_mark_qty =
+  //   (gs->coord_axes[0]->axis_max - gs->coord_axes[0]->axis_min) / gs->atm[0]->qty;
+  // int x_left = (x_tic_mark_qty / 2 + 2) * (GRAPH_DIMS / gs->atm[0]->width);
+  // int y_tic_mark_qty =
+  //   (gs->coord_axes[1]->axis_max - gs->coord_axes[1]->axis_min) / gs->atm[1]->qty;
+  // int y_up = (y_tic_mark_qty / 2 + 2) * (GRAPH_DIMS / gs->atm[0]->width);
+  // printf("%d, %d\n", x_left, y_up);
+  // gs->num = init_numeric(x_tic_mark_qty, 15, x_left, y_up);
   gs->gb = gb;
   gs->axis_no = axis_no;
   return gs;
@@ -45,6 +53,7 @@ void write_gs_to_canvas(canvas * can, graph_scale * gs) {
   write_atm_to_canvas(can, gs->atm[1]);
   write_ca_to_canvas(can, gs->coord_axes[0]);
   write_ca_to_canvas(can, gs->coord_axes[1]);
+  // write_numeric_to_canvas(gs->num, can);
   write_gb_to_canvas(can, gs->gb);
 }
 

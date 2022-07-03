@@ -17,8 +17,8 @@ int main(int argc, char * argv[]) {
     fprintf(stderr, "Usage:\n./path_to/executable path_to/input.txt\n");
     exit(1);
   }
-  // write_outputs_from_input_cfg_file(argv[1]); // Write the input file to output
-                                              // file(s)
-  numerics_test();
+   write_outputs_from_input_cfg_file(argv[1]); // Write the input file to output
+                                               // file(s)
+  // numerics_test();
   return 0;
 }
