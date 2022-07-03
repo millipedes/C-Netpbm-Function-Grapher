@@ -272,6 +272,58 @@ void write_four_to_canvas(numeric * num, canvas * can) {
 }
 
 void write_five_to_canvas(numeric * num, canvas * can) {
+  double all_rect_height = num->height / 5;
+  double inter_rect_width = (double)num->width / 3.0;
+  double current_rect_y = num->up_y;
+  // Top Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Top Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index,
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Middle Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Intermediate Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index + 2 * (num->width / 3),
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      ceil(inter_rect_width),                        // width
+      num->numeric_col                               // Color (always black)
+      );
+  current_rect_y += all_rect_height;
+  // Bottom Rectangle
+  write_rectangle_from_ul(
+      can,                                           // Canvas
+      num->left_x + num->width * num->current_index, // leftmost start
+      current_rect_y,                                // uppermost start
+      all_rect_height,                               // Height
+      num->width,                                    // width
+      num->numeric_col                               // Color (always black)
+      );
   num->current_index++;
 }
 
