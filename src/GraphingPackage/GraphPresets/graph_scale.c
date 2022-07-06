@@ -26,20 +26,33 @@ graph_scale * init_graph_scale(axis_tic_marks * atm_x, axis_tic_marks * atm_y,
   gs->atm[1] = atm_y;
   if(axis_no == 2) {
     gs->coord_axes = calloc(2, sizeof(struct COORD_AXIS_T *));
+    gs->num = calloc(2, sizeof(struct NUMERIC_T *));
     gs->coord_axes[0] = ca_x;
     gs->coord_axes[1] = ca_y;
   }
-  // int x_tic_mark_qty =
-  //   (gs->coord_axes[0]->axis_max - gs->coord_axes[0]->axis_min) / gs->atm[0]->qty;
-  // int x_left = (x_tic_mark_qty / 2 + 2) * (GRAPH_DIMS / gs->atm[0]->width);
-  // int y_tic_mark_qty =
-  //   (gs->coord_axes[1]->axis_max - gs->coord_axes[1]->axis_min) / gs->atm[1]->qty;
-  // int y_up = (y_tic_mark_qty / 2 + 2) * (GRAPH_DIMS / gs->atm[0]->width);
-  // printf("%d, %d\n", x_left, y_up);
-  // gs->num = init_numeric(x_tic_mark_qty, 15, x_left, y_up);
+  gs->num[0] = make_x_numeric(gs);
+  gs->num[1] = make_y_numeric(gs);
   gs->gb = gb;
   gs->axis_no = axis_no;
   return gs;
+}
+
+numeric * make_y_numeric(graph_scale * gs) {
+  double y_tic_mark_qty =
+    ((double)gs->coord_axes[1]->axis_max - (double)gs->coord_axes[1]->axis_min)
+    / (double)gs->atm[1]->qty;
+  int x_left = (gs->atm[1]->qty / 2 + 0.35) * (GRAPH_DIMS / gs->atm[1]->qty);
+  int y_up = (gs->atm[1]->qty / 2 - 1.15) * (GRAPH_DIMS / gs->atm[1]->qty);
+  return init_numeric(y_tic_mark_qty, NUMR_HEIGHT, x_left, y_up);
+}
+
+numeric * make_x_numeric(graph_scale * gs) {
+  double x_tic_mark_qty =
+    ((double)gs->coord_axes[0]->axis_max - (double)gs->coord_axes[0]->axis_min)
+    / (double)gs->atm[0]->qty;
+  int x_left = (gs->atm[0]->qty / 2 + 0.5) * (GRAPH_DIMS / gs->atm[0]->qty);
+  int y_up = (gs->atm[0]->qty / 2 + 0.35) * (GRAPH_DIMS / gs->atm[0]->qty);
+  return init_numeric(x_tic_mark_qty, NUMR_HEIGHT, x_left, y_up);
 }
 
 /**
@@ -53,7 +66,8 @@ void write_gs_to_canvas(canvas * can, graph_scale * gs) {
   write_atm_to_canvas(can, gs->atm[1]);
   write_ca_to_canvas(can, gs->coord_axes[0]);
   write_ca_to_canvas(can, gs->coord_axes[1]);
-  // write_numeric_to_canvas(gs->num, can);
+  write_numeric_to_canvas(gs->num[0], can);
+  write_numeric_to_canvas(gs->num[1], can);
   write_gb_to_canvas(can, gs->gb);
 }
 
@@ -76,6 +90,11 @@ void free_graph_scale(graph_scale * gs) {
     }
     if(gs->gb)
       free_graph_border(gs->gb);
+    if(gs->num) {
+      for(int i = 0; i < 2; i++)
+        free_numeric(gs->num[i]);
+      free(gs->num);
+    }
     free(gs);
   }
 }

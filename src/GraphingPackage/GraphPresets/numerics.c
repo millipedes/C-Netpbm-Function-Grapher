@@ -343,6 +343,12 @@ void write_seven_to_canvas(numeric * num, canvas * can) {
       current_rect_y);
 }
 
+/**
+ * This function writes an eight to a canvas
+ * @param  num - the numeric from which the period comes from
+ * @param  can - the canvas to be written to
+ * @return N/a
+ */
 void write_eight_to_canvas(numeric * num, canvas * can) {
   double all_rect_height = num->height / 5;
   double current_rect_y = num->up_y;
@@ -369,6 +375,12 @@ void write_eight_to_canvas(numeric * num, canvas * can) {
   write_wide_rect(can, num, all_rect_height, current_rect_y);
 }
 
+/**
+ * This function writes a nine to a canvas
+ * @param  num - the numeric from which the period comes from
+ * @param  can - the canvas to be written to
+ * @return N/a
+ */
 void write_nine_to_canvas(numeric * num, canvas * can) {
   double all_rect_height = num->height / 5;
   double current_rect_y = num->up_y;
