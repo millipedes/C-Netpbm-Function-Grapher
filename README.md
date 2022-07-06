@@ -1,14 +1,5 @@
 # :chart_with_upwards_trend: Project Goal
-To make a C graphing utility that is capable of graphing:
-- Functions (Implemented)
-- Points (Not Implemented)
-- Transcendental Functions in Terms of Integration and Differentiation (Not
-  Implemented)
-- Relationships (Not Implemented)
-- Vector Fields (Not Implemented)
-Please See the [Current Features](https://github.com/millipedes/C-Netpbm-Function-Grapher#zap-current-features)
-section and [Currently Needed Improvements](https://github.com/millipedes/C-Netpbm-Function-Grapher#turtle-currently-needed-improvements)
-sections for more details on what exactly is implemented.
+To make a C graphing utility that is capable of graphing functions.
 
 # :zap: Current Features
 This graphing utility is capable of making [netpbm](https://en.wikipedia.org/wiki/Netpbm)
@@ -119,7 +110,7 @@ The above example without comments can be found in
 `docs/example_graph_set/example_graph.txt`.  Additionally by running the
 command:
 ```
-  make io-run
+  make run
 ```
 After the project is built, it will take in the example file as input and output
 in the current directory the file test.ppm corresponding to the example input
@@ -141,12 +132,13 @@ achieve the ability of reading in arbitrary user functions:
 
 # :turtle: Currently Needed Improvements
 The following features I will be implementing in the future:
+- Accept Points as Input.
+- Make support for calculus functions (`der`/`int`) for trancendental functions
+  in the context free grammar.
+- Relationships
+- Vector Fields
 - Write a better file I/O to include the ability for one input file to write to
   several output files.
-- Accept Points as Input.
-- Make Axis Tic Mark scale quantities display on graph.
-- Make support for calculus functions (`der`/`int`) in the context free grammar.
-- Add support for vector fields.
 - 3d support (very bottom of the list).
 
 # :fireworks: Credits

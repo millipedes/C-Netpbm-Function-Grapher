@@ -10,7 +10,6 @@
  * @todo   Nothing
  */
 #include "../GraphingPackage/include/file_io.h"
-#include "../tests/GraphingPackage/GraphPresets/include/numerics_test.h"
 
 int main(int argc, char * argv[]) {
   if(argc < 2) {
@@ -19,6 +18,5 @@ int main(int argc, char * argv[]) {
   }
   write_outputs_from_input_cfg_file(argv[1]); // Write the input file to output
                                               // file(s)
-  // numerics_test();
   return 0;
 }
