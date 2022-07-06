@@ -14,6 +14,7 @@
 typedef struct AST_T {
   token * value;
   struct AST_T ** children;
+  double numeric_value;
   int no_children;
 } ast;
 

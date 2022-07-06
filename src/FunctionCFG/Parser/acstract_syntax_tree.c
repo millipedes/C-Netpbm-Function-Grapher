@@ -19,6 +19,10 @@ ast * init_ast(char * t_literal, token_type type) {
   ast * abstree = calloc(1, sizeof(struct AST_T));
   abstree->value = init_token(t_literal, type);
   abstree->children = NULL;
+  if(abstree->value->type == TOKEN_NUMBER)
+    abstree->numeric_value = atof(abstree->value->t_literal);
+  else
+    abstree->numeric_value = 0.0;
   abstree->no_children = 0;
   return abstree;
 }

@@ -27,7 +27,7 @@ double evaluate_tree(ast * abstree, double x) {
     case TOKEN_VAR:
       return x;
     case TOKEN_NUMBER:
-      return atof(abstree->value->t_literal);
+      return abstree->numeric_value;
     case TOKEN_PLUS:
       return addition(evaluate_tree(abstree->children[0], x),
           evaluate_tree(abstree->children[1], x));
