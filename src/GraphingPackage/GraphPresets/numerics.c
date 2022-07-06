@@ -7,6 +7,7 @@
  * @bug    None known
  * @todo   Nothing
  */
+#define _POSIX_C_SOURCE 200809L
 #include "include/numerics.h"
 
 /**

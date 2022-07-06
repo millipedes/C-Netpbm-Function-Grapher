@@ -1,4 +1,4 @@
-CC=gcc -g -Wall -Wextra
+CC=gcc -g -Wall -Wextra -std=c99
 OCFILES=$(wildcard src/*/*.c)
 OHFILES=$(wildcard src/*/include/*.h)
 TCFILES=$(wildcard src/*/*/*.c)

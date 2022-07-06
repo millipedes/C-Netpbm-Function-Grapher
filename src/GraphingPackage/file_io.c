@@ -13,6 +13,7 @@
  * This whole file needs serious work. But as is it can do what I expect the
  * beta version of the software to do.
  */
+#define _POSIX_C_SOURCE 200809L
 #include "include/file_io.h"
 
 /**
