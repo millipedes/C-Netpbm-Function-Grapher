@@ -18,6 +18,9 @@ typedef struct NUMERIC_T {
 
 numeric * init_numeric(double scale_qty, int height, int x_left, int y_up);
 void write_numeric_to_canvas(numeric * num, canvas * can);
+void write_third_rect(canvas * can, numeric * num, double height, double x,
+    double y);
+void write_wide_rect(canvas * can, numeric * num, double height, double y);
 void write_zero_to_canvas(numeric * num, canvas * can);
 void write_one_to_canvas(numeric * num, canvas * can);
 void write_two_to_canvas(numeric * num, canvas * can);
