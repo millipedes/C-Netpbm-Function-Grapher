@@ -1,6 +1,17 @@
 # :chart_with_upwards_trend: Project Goal
 To make a C graphing utility that is capable of graphing functions.
 
+[image](./docs/figures/test.png)
+The above is an example graph made by this graphing utility.  It is the example
+file provided and shows the graph of:
+- sin(x^2 + 1)
+- cos(x)
+- tan(x)
+- (x + 1)^(x + 1)
+- (x - 1)^2 + 1
+- (x + 1)^3 - 1
+- log(x)
+
 # :zap: Current Features
 This graphing utility is capable of making [netpbm](https://en.wikipedia.org/wiki/Netpbm)
 image files of the function(s) that the user specifies in any color in the rgb
