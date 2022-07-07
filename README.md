@@ -2,6 +2,8 @@
 To make a C graphing utility that is capable of graphing functions.
 
 ![image](./docs/figures/test.png)
+
+
 The above is an example graph made by this graphing utility.  It is the example
 file provided and shows the graph of:
 - sin(x^2 + 1)
