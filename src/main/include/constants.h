@@ -12,7 +12,7 @@
 #define COL_MAX         255  // Used to init colors to white
 #define COL_MIN         0    // Used to init colors to black
 #define MAX_TOK_LEN     1024 // Max token length
-#define GRAPH_DIMS      500  // The size of the graph itself in pixels, modify this
+#define GRAPH_DIMS      1000 // The size of the graph itself in pixels, modify this
                              // to make it larger/smaller
 
 #define GPRAH_TIC_SMALL 5    // The small dimension of the axis tic marks
