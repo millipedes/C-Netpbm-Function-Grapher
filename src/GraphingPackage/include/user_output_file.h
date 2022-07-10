@@ -1,3 +1,11 @@
+/**
+ * @file   user_out_file.h
+ * @brief  This file contains the function definitions for user_out_file.c
+ * @author Matthew C. Lindeman
+ * @date   July 09, 2022
+ * @bug    None known
+ * @todo   Nothing
+ */
 #ifndef UOF_H
 #define UOF_H
 
@@ -39,10 +47,6 @@ void process_tic_marks_small(user_out_file * user_of, token_stack ** ts,
 void process_tic_marks_large(user_out_file * user_of, token_stack ** ts,
     lexer ** lex);
 void process_graph_border(user_out_file * user_of, token_stack ** ts,
-    lexer ** lex);
-void process_numer_height(user_out_file * user_of, token_stack ** ts,
-    lexer ** lex);
-void process_numer_width(user_out_file * user_of, token_stack ** ts,
     lexer ** lex);
 void user_out_file_dump_debug(user_out_file * user_of);
 void free_user_out_file(user_out_file * user_of);

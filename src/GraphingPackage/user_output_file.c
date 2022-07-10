@@ -51,6 +51,20 @@ user_out_file * process_file_heading(token_stack ** ts) {
   return user_of;
 }
 
+/**
+ * This function processes a function block in a user input file (i.e. a block
+ * that is prefaced by "FUNC" and postfixed with "END"
+ * @param      buf - a user input buffer used as default data storage from the
+ * fp
+ * @param      lex - the lexer usered to process user input file
+ * @param      rev - the token_stack that the lexer writes to (by reverseing
+ * tok_list)
+ * @param tok_list - a list that the lexer writes into then is reversed and
+ * stored in rev
+ * @param input_fp - the input file from which the block is reading
+ * @param  user_of - the data structure to record the information in
+ * @return     N/a
+ */
 void process_func_section(char buf[], lexer ** lex, token_stack ** rev,
     token_stack ** tok_list, FILE * input_fp, user_out_file * user_of) {
   clean_lexer_token_stack(lex, rev);
@@ -69,6 +83,15 @@ void process_func_section(char buf[], lexer ** lex, token_stack ** rev,
   clean_lexer_token_stack(lex, rev);
 }
 
+/**
+ * This function processes a color user input
+ * @param user_of - the data structure to record the information in
+ * @param      ts - the token stack from which the information will be read
+ * @param     lex - the lexer is freed in all processing functions (not
+ * explicitly mentioned in functions because functions is a block while others
+ * are not)
+ * @return    N/a
+ */
 void process_color(user_out_file * user_of, token_stack ** ts, lexer ** lex) {
   ts[0] = pop_token(ts[0]);
   int r = 0;
@@ -92,6 +115,13 @@ void process_color(user_out_file * user_of, token_stack ** ts, lexer ** lex) {
   clean_lexer_token_stack(lex, ts);
 }
 
+/**
+ * This function will process: (x|y)_(min|max).
+ * @param user_of - the data structure in which the evidence is stored
+ * @param      ts - the token stack to be read from 
+ * @param     lex - the lexer is freed in all process functions
+ * @return    N/a
+ */
 void process_min_maxes(user_out_file * user_of, token_stack ** ts,
     lexer ** lex) {
   if(!strncmp(ts[0]->current->t_literal, "X_MIN", MAX_TOK_LEN)) {
@@ -126,6 +156,14 @@ void process_min_maxes(user_out_file * user_of, token_stack ** ts,
   clean_lexer_token_stack(lex, ts);
 }
 
+/**
+ * This function will process the canvas_dims (i.e. the side length of the
+ * resulting square image).
+ * @param user_of - The data structure in which information will be stored
+ * @param      ts - The token_stack from which the infomation is read
+ * @param     lex - The lexer is freed in all process funtions
+ * @return    N/a
+ */
 void process_canvas_dims(user_out_file * user_of, token_stack ** ts,
     lexer ** lex) {
   ts[0] = pop_token(ts[0]);
@@ -133,6 +171,14 @@ void process_canvas_dims(user_out_file * user_of, token_stack ** ts,
   clean_lexer_token_stack(lex, ts);
 }
 
+/**
+ * This function will process the quantity of tic marks to be displayed on each
+ * axis
+ * @param user_of - The data structure in which information will be stored
+ * @param      ts - The token_stack from which the infomation is read
+ * @param     lex - The lexer is freed in all process funtions
+ * @return    N/a
+ */
 void process_qty_tic_marks(user_out_file * user_of, token_stack ** ts,
     lexer ** lex) {
   ts[0] = pop_token(ts[0]);
@@ -140,6 +186,14 @@ void process_qty_tic_marks(user_out_file * user_of, token_stack ** ts,
   clean_lexer_token_stack(lex, ts);
 }
 
+/**
+ * This function will process the small dimension of the tic marks (i.e. height
+ * of y axis tic marks and width of x axis tic marks)
+ * @param user_of - The data structure in which information will be stored
+ * @param      ts - The token_stack from which the infomation is read
+ * @param     lex - The lexer is freed in all process funtions
+ * @return    N/a
+ */
 void process_tic_marks_small(user_out_file * user_of, token_stack ** ts,
     lexer ** lex) {
   ts[0] = pop_token(ts[0]);
@@ -147,6 +201,14 @@ void process_tic_marks_small(user_out_file * user_of, token_stack ** ts,
   clean_lexer_token_stack(lex, ts);
 }
 
+/**
+ * This function will process the large dimension of the tic marks (i.e. width
+ * of y axis tic marks and height of x axis tic marks)
+ * @param user_of - The data structure in which information will be stored
+ * @param      ts - The token_stack from which the infomation is read
+ * @param     lex - The lexer is freed in all process funtions
+ * @return    N/a
+ */
 void process_tic_marks_large(user_out_file * user_of, token_stack ** ts,
     lexer ** lex) {
   ts[0] = pop_token(ts[0]);
@@ -154,6 +216,13 @@ void process_tic_marks_large(user_out_file * user_of, token_stack ** ts,
   clean_lexer_token_stack(lex, ts);
 }
 
+/**
+ * This function will process the width of the graph border (which can be 0)
+ * @param user_of - The data structure in which information will be stored
+ * @param      ts - The token_stack from which the infomation is read
+ * @param     lex - The lexer is freed in all process funtions
+ * @return    N/a
+ */
 void process_graph_border(user_out_file * user_of, token_stack ** ts,
     lexer ** lex) {
   ts[0] = pop_token(ts[0]);
@@ -161,20 +230,11 @@ void process_graph_border(user_out_file * user_of, token_stack ** ts,
   clean_lexer_token_stack(lex, ts);
 }
 
-// void process_numer_height(user_out_file * user_of, token_stack ** ts,
-//     lexer ** lex) {
-//   ts[0] = pop_token(ts[0]);
-//   user_of->numer_height = atoi(ts[0]->current->t_literal);
-//   clean_lexer_token_stack(lex, ts);
-// }
-// 
-// void process_numer_width(user_out_file * user_of, token_stack ** ts,
-//     lexer ** lex) {
-//   ts[0] = pop_token(ts[0]);
-//   user_of->numer_width = atoi(ts[0]->current->t_literal);
-//   clean_lexer_token_stack(lex, ts);
-// }
-
+/**
+ * This function is used for debugging the user_out_file data structure
+ * @param user_of - the user_out_file data structure to be debugged
+ * @return
+ */
 void user_out_file_dump_debug(user_out_file * user_of) {
   for(int i = 0; i < user_of->qty_functions; i++)
     ast_dump_debug(user_of->functions[i]);
@@ -193,8 +253,6 @@ void user_out_file_dump_debug(user_out_file * user_of) {
   printf("graph_tic_mark_small: %d\n", user_of->graph_tic_mark_small);
   printf("graph_tic_mark_large: %d\n", user_of->graph_tic_mark_large);
   printf("graph_border: %d\n", user_of->graph_border);
-  // printf("numer_width: %d\n", user_of->numer_width);
-  // printf("numer_height: %d\n", user_of->numer_height);
 }
 
 /**
@@ -218,9 +276,9 @@ void proc_new_line(char buf[], lexer ** lex, token_stack ** rev,
 /**
  * This function frees and points the given lexer/token_stack to NULL. Since we
  * are modifying addresses, again we need to pass a double pointer
- * @param lex - lex to be freed and NULLed
- * @param rev - token_stack to be freed and NULLed
- * @return
+ * @param  lex - lex to be freed and NULLed
+ * @param  rev - token_stack to be freed and NULLed
+ * @return N/a
  */
 void clean_lexer_token_stack(lexer ** lex, token_stack ** rev) {
   // Clean up the pointers to use them again
@@ -231,6 +289,11 @@ void clean_lexer_token_stack(lexer ** lex, token_stack ** rev) {
   lex[0] = NULL;
 }
 
+/**
+ * This function frees a user_out_file data structure
+ * @param user_of - the user output file to be freed
+ * @return    N/a
+ */
 void free_user_out_file(user_out_file * user_of) {
   if(user_of) {
     // Free Functions
