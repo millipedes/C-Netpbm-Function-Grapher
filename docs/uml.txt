@@ -105,6 +105,37 @@ package GraphingPackage {
     {method} + write_canvas_to_file(char *, canvas *)
   }
 
+  class user_out_file {
+     {field} + functions : ast **
+     {field} + func_colors : color **
+     {field} + file_name : char *
+     {field} + qty_functions : int
+     {field} + qty_colors : int
+     {field} + x_min : double
+     {field} + y_min : double
+     {field} + x_max : double
+     {field} + y_max : double
+     {field} + canvas_dims : int
+     {field} + qty_tic_marks : int
+     {field} + graph_tic_mark_small : int
+     {field} + graph_tic_mark_large : int
+     {field} + graph_border : int
+    {method} + user_out_file * init_user_output_file(void)
+    {method} + user_out_file * process_file_heading(token_stack **)
+    {method} + void process_func_section(char[], lexer **, token_stack **, token_stack **, FILE *, user_out_file *)
+    {method} + void process_color(user_out_file *, token_stack **, lexer **)
+    {method} + void process_min_maxes(user_out_file *, token_stack **, lexer **)
+    {method} + void process_canvas_dims(user_out_file *, token_stack **, lexer **)
+    {method} + void process_qty_tic_marks(user_out_file *, token_stack **, lexer **)
+    {method} + void process_tic_marks_small(user_out_file *, token_stack **, lexer **)
+    {method} + void process_tic_marks_large(user_out_file *, token_stack **, lexer **)
+    {method} + void process_graph_border(user_out_file *, token_stack **, lexer **)
+    {method} + void user_out_file_dump_debug(user_out_file *)
+    {method} + void free_user_out_file(user_out_file *)
+    {method} + void proc_new_line(char[], lexer **, token_stack **, FILE *, token_stack **)
+    {method} + void clean_lexer_token_stack(lexer **, token_stack **)
+  }
+
   class color {
      {field} + r : int
      {field} + g : int
@@ -209,6 +240,7 @@ file_io --> graph_scale
 file_io --> canvas
 file_io --> parser
 file_io --> relation
+file_io --> user_out_file
 
 ' The arrows to color
 pixel        o--> color
