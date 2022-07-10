@@ -14,7 +14,6 @@
 #define MAX_TOK_LEN     1024 // Max token length
 #define GRAPH_DIMS      1000 // The size of the graph itself in pixels, modify this
                              // to make it larger/smaller
-
 #define GPRAH_TIC_SMALL 5    // The small dimension of the axis tic marks
 #define GPRAH_TIC_LARGE 30   // The large dimension of the axis tic marks
 #define QTY_TIC_MARKS   10   // The quantity of tic marks to be made
