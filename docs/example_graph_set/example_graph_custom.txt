@@ -1,4 +1,8 @@
 FILE_NAME test.ppm
+  CANVAS_DIMS     500
+  QTY_TIC_MARKS   20
+  TIC_MARKS_SMALL 10
+  TIC_MARKS_LARGE 40
   COLOR           0,35,66
   COLOR           255,0,0
   COLOR           0,255,0
@@ -6,10 +10,12 @@ FILE_NAME test.ppm
   COLOR           255,0,255
   COLOR           255,255,0
   COLOR           0,255,255
-  X_MIN           -10
-  Y_MIN           -10
-  X_MAX            10
-  Y_MAX            10
+  X_MIN           -20
+  Y_MIN           -20
+  X_MAX            20
+  Y_MAX            20
+  NUMER_HEIGHT     40
+  NUMER_WIDTH      20
   FUNC
     sin(x^2 + 1)
     cos(x)
