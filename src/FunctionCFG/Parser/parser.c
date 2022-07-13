@@ -72,45 +72,6 @@ double evaluate_tree(ast * abstree, double x) {
   }
 }
 
-// ast * derivative_of(ast * abstree) {
-//   double r1 = 0.0;
-//   double r2 = 0.0;
-//   char * char_r1 = calloc(9 + 3, sizeof(char));
-//   char * char_r2 = calloc(9 + 3, sizeof(char));
-//   ast * ast1 = NULL;
-//   ast * ast2 = NULL;
-// 
-//   if(abstree->value->type == TOKEN_NUMBER) {
-//     free_ast(abstree);
-//     return init_ast("0", TOKEN_NUMBER);
-//   }
-//   if(abstree->value->type == TOKEN_VAR) {
-//     free_ast(abstree);
-//     return init_ast("1", TOKEN_NUMBER);
-//   }
-//   if(abstree->value->type == TOKEN_MULT &&
-//       subtree_all_numbers(abstree->children[0]) &&
-//       subtree_all_numbers(abstree->children[1])) {
-//   }
-//   if(abstree->value->type == TOKEN_POWER &&
-//       subtree_all_numbers(abstree->children[0]) &&
-//       !subtree_all_numbers(abstree->children[1])) {
-//     r1 = evaluate_tree(abstree->children[1], 0);
-//     r2 = r1 - 1;
-//     sprintf(char_r1, "%.8f", r1);
-//     sprintf(char_r2, "%.8f", r2);
-//     ast1 = binary_tree(init_ast("*", TOKEN_POWER),
-//                        init_ast(abstree->children[0]->value->t_literal, TOKEN_VAR),
-//                        init_ast(char_r1, TOKEN_NUMBER));
-//     ast2 = init_ast(char_r2, TOKEN_NUMBER);
-//     free(char_r1);
-//     free(char_r2);
-//     free_ast(abstree);
-//     return binary_tree(init_ast("^", TOKEN_POWER), ast1, ast2);
-// 
-//   }
-// }
-
 ast * derivative_of(ast * abstree) {
   ast * ast1 = NULL;
   char * result = calloc(9 + 3, sizeof(char));
@@ -388,14 +349,4 @@ ast * unary_tree(ast * parent, ast * child) {
   parent->children[0] = child;
   parent->no_children = 1;
   return parent;
-}
-
-void decrement_number_ast(ast * abstree) {
-  char * result = calloc(9 + 3, sizeof(char));
-  double r1 = 0.0;
-  r1 = abstree->numeric_value - 1;
-  sprintf(result, "%.8f", r1);
-  free_ast(abstree);
-  abstree = NULL;
-  abstree = init_ast(result, TOKEN_NUMBER);
 }

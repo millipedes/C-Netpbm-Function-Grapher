@@ -22,6 +22,5 @@ ast * unary_tree(ast * parent, ast * child);
 ast * derivative_of(ast * abstree);
 ast * simplify_tree(ast * abstree);
 int subtree_all_numbers(ast * abstree);
-void decrement_number_ast(ast * abstree);
 
 #endif

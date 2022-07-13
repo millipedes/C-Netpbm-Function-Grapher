@@ -84,6 +84,12 @@ void free_ast(ast * abstree) {
   }
 }
 
+/**
+ * This function prints an abstract syntax tree as though it were an expression
+ * on one line. Can't print its own new line, so you want to follow it with one.
+ * @param abstree - The abstract syntax tree to be printed.
+ * @return    N/a
+ */
 void ast_print_expression(ast * abstree) {
   if(abstree->no_children == 0)
     printf("%s ", abstree->value->t_literal);
@@ -95,4 +101,19 @@ void ast_print_expression(ast * abstree) {
     printf("%s ", abstree->value->t_literal);
     ast_print_expression(abstree->children[1]);
   }
+}
+
+/**
+ * This function decrements a number ast node
+ * @param abstree - The node that will de decremented.
+ * @return N/a
+ */
+void decrement_number_ast(ast * abstree) {
+  char * result = calloc(9 + 3, sizeof(char));
+  double r1 = 0.0;
+  r1 = abstree->numeric_value - 1;
+  sprintf(result, "%.8f", r1);
+  free_ast(abstree);
+  abstree = NULL;
+  abstree = init_ast(result, TOKEN_NUMBER);
 }

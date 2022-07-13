@@ -1,3 +1,12 @@
+/**
+ * @file   parser_test.c
+ * @brief  This file contains functions that are used in testing functions in
+ * parser.c
+ * @author Matthew C. Lindeman
+ * @date   July 13, 2022
+ * @bug    None known
+ * @todo   Nothing
+ */
 #include "include/parser_test.h"
 
 void test_parser_simplify_tree(char * input) {

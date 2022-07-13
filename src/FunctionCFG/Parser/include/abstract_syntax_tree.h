@@ -32,5 +32,6 @@ void ast_pretty_print(ast * abstree);
 void ast_dump_debug(ast * abstree);
 void free_ast(ast * abstree);
 void ast_print_expression(ast * abstree);
+void decrement_number_ast(ast * abstree);
 
 #endif
