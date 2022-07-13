@@ -13,9 +13,15 @@
 #include <stdlib.h>
 #include "../../main/include/constants.h"
 
+/**
+ * This structure is used to represent an rgb color.
+ */
 typedef struct COLOR_T {
+  /** The red value of the color */
   int r;
+  /** The green value of the color */
   int g;
+  /** The blue value of the color */
   int b;
 } color;
 

@@ -12,8 +12,13 @@
 #include "../../include/color.h"
 #include "../../GraphEncoding/include/canvas.h"
 
+/**
+ * This structure contains the data related to the graph border.
+ */
 typedef struct GRAPH_BORDER_T {
+  /** The color of the graph border */
   color * b_color;
+  /** The width in pixels of the graph border */
   int width;
 } graph_border;
 

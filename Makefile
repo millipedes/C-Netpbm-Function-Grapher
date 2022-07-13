@@ -21,6 +21,9 @@ all:$(OOBJFILES) $(TOBJFILES) $(ROBJFILES)
 vim:
 	nvim $(OCFILES) $(TCFILES) $(RCFILES)
 
+vimh:
+	nvim $(OHFILES) $(THFILES) $(RHFILES)
+
 run:
 	$(EXEFILE) $(INFILE)
 

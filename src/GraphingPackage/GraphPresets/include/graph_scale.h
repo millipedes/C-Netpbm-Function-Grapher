@@ -14,12 +14,23 @@
 #include "graph_border.h"
 #include "numerics.h"
 
+/**
+ * This struct is used for containing the presets of a graph_scale (i.e. what
+ * x/y values does the graph span, tic mark and border info etc.).
+ */
 typedef struct GRAPH_SCALE_T {
-  axis_tic_marks ** atm;    // (index 0 : x) (index 1 : y) (maybe index 2 : z)
-  coord_axis ** coord_axes; // (index 0 : x) (index 1 : y) (maybe index 2 : z)
-  graph_border * gb;        // Just the border
-  numeric ** num;           // The numbers for the tic marks
-  int axis_no;              // 2 || 3 qty of axes
+  /** (index 0 : x) (index 1 : y) */
+  axis_tic_marks ** atm;
+  /** (index 0 : x) (index 1 : y) */
+  coord_axis ** coord_axes;
+  /** The border of the graph */
+  graph_border * gb;
+  /** The numbers for the scale under/around tic marks */
+  numeric ** num;
+  /** Earlier in development I postulated 3d graphs but we are still a ways
+   * away
+   */
+  int axis_no;
 } graph_scale;
 
 graph_scale * init_graph_scale(axis_tic_marks * atm_x, axis_tic_marks * atm_y,

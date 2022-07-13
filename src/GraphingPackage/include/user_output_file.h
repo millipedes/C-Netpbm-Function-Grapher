@@ -14,20 +14,38 @@
 #include "../../FunctionCFG/Parser/include/parser.h"
 #include "../../GraphingPackage/GraphPresets/include/graph_scale.h"
 
+/**
+ * This data structure is used to get the custom parameters to be used in a user
+ * output file from the user input file to the program.
+ */
 typedef struct USER_OUT_FILE_T {
+  /** The functions to be plotted */
   ast ** functions;
+  /** The colors of the functions to be plotted */
   color ** func_colors;
+  /** The output file name */
   char * file_name;
+  /** The quantity of functions */
   int qty_functions;
+  /** The quantity of colors */
   int qty_colors;
+  /** The minimum x value of the graph */
   double x_min;
+  /** The minimum y value of the graph */
   double y_min;
+  /** The maximum x value of the graph */
   double x_max;
+  /** The maximum y value of the graph */
   double y_max;
+  /** The dimensions of resulting canvas in pixels */
   int canvas_dims;
+  /** The quantity of tic marks to be displayed */
   int qty_tic_marks;
+  /** The small dimension of tic marks in pixels */ 
   int graph_tic_mark_small;
+  /** The large dimension of tic marks in pixels */
   int graph_tic_mark_large;
+  /** The graph border width in pixels */
   int graph_border;
 }user_out_file;
 

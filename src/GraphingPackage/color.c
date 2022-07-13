@@ -1,19 +1,18 @@
 /**
  * @file   color.c
- * @brief  This file contains functions relating to color
+ * @brief  This file contains functions relating to initializing, modifying,
+ * and debugging the data structure color (struct COLOR_T).
  * @author Matthew C. Lindeman
  * @date   June 07, 2022
- * @bug    None known
- * @todo   Nothing
  */
 #include "include/color.h"
 
 /**
- * This function initializes a color object given a red, green, and blue value
- * @param    r - the red value (<= 255)
- * @param    g - the green value (<= 255)
- * @param    b - the blue value (<= 255)
- * @return col - the new color
+ * This function initializes a color object given a red, green, and blue value.
+ * @param    r - The red value (<= 255).
+ * @param    g - The green value (<= 255).
+ * @param    b - The blue value (<= 255).
+ * @return col - The newly initialized color.
  */
 color * init_color(int r, int g, int b) {
   color * col = calloc(1, sizeof(struct COLOR_T));
@@ -24,8 +23,8 @@ color * init_color(int r, int g, int b) {
 }
 
 /**
- * This function is used for debugging a color
- * @param  col - the color to be debugged
+ * This function is used for debugging a color data structure.
+ * @param  col - The color to be debugged.
  * @return N/a
  */
 void color_dump_debug(color * col) {
@@ -35,9 +34,9 @@ void color_dump_debug(color * col) {
 }
 
 /**
- * This function chandes the color of dest to that of src
- * @param dest - the color to be changed
- * @param  src - the color to be changed to
+ * This function changes the rgb values contained in dest to that of src.
+ * @param dest - The color structure to be changed.
+ * @param  src - The color structure to be changed to.
  * @return N/a
  */
 void change_color(color * dest, color * src) {
@@ -47,8 +46,8 @@ void change_color(color * dest, color * src) {
 }
 
 /**
- * This function determines if a given color is white.  If so returns 1, 0
- * otherwise (this is for checking bg color)
+ * This function determines if a given color is white.  If so returns 1, and 0
+ * otherwise.
  * @param test - the color to be tested
  * @return   1 - the color is white
  *           0 - the color is not white
@@ -60,8 +59,8 @@ int is_color_white(color * test) {
 }
 
 /**
- * This function is basically just a free wrapper, but a part of the coding
- * style for this project
+ * This function is basically just a free wrapper, but the style of this project
+ * requires free functions for each custom data structure.
  * @param  col - the color to be freed
  * @return N/a
  */

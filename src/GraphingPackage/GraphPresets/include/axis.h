@@ -12,7 +12,6 @@
 typedef enum {
   X,
   Y,
-  Z
 } axis;
 
 #endif

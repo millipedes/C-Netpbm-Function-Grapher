@@ -11,8 +11,13 @@
 
 #include "../../include/color.h"
 
+/**
+ * This structure is used to represent a pixel in the graph being made.
+ */
 typedef struct PIXEL_T {
+  /** The color of the pixel */
   color * pix_color;
+  /** The layer number of the pixel */
   int layer_no;
 } pixel;
 

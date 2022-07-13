@@ -15,10 +15,13 @@
 
 double evaluate_tree(ast * abstree, double x);
 ast * parse_expression(token_stack ** ts);
-ast * parse_high_precedence_operator(token_stack ** ts);
 ast * parse_term(token_stack ** ts);
 ast * parse_factor(token_stack ** ts);
 ast * binary_tree(ast * parent, ast * left_child, ast * right_child);
 ast * unary_tree(ast * parent, ast * child);
+ast * derivative_of(ast * abstree);
+ast * simplify_tree(ast * abstree);
+int subtree_all_numbers(ast * abstree);
+void decrement_number_ast(ast * abstree);
 
 #endif

@@ -11,8 +11,13 @@
 
 #include"token.h"
 
+/**
+ * This structure is a standard stack with a token (TOKEN_T) as a value.
+ */
 typedef struct TOKEN_STACK_T {
+  /** Current token on the stack */
   token * current;
+  /** The next element in the stack */
   struct TOKEN_STACK_T * prev;
 } token_stack;
 

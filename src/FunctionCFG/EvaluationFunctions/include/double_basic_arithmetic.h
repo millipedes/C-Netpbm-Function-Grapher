@@ -14,6 +14,5 @@ double addition(double t1, double t2);
 double subtraction(double t1, double t2);
 double multiplication(double t1, double t2);
 double division(double t1, double t2);
-// Note no power operator as it exists in math.h
 
 #endif

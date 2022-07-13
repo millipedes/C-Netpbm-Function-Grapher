@@ -14,11 +14,21 @@
 #include "../../GraphEncoding/include/canvas.h"
 #include "axis.h"
 
+/**
+ * A coordinate axis line for subdividing the graph. Marked on the center of the
+ * scale and not the origin.  For example if the scale is -10 to 0 on an axis
+ * then the line would be on -5, not  dividing quadrants by being on 0.
+ */
 typedef struct COORD_AXIS_T {
+  /** The color of the coordinate axis, default black (0,0,0) */
   color * black;
+  /** The minimum value of the axis */
   double axis_min;
+  /** The maximum value of the axis */
   double axis_max;
+  /** The width in pixels of the axis */
   int width;
+  /** X or Y axis */
   axis this_axis;
 } coord_axis;
 

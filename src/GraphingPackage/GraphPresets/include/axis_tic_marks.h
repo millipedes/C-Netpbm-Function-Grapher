@@ -13,11 +13,20 @@
 #include "../../../main/include/constants.h"
 #include "axis.h"
 
+/**
+ * This data structure contains the data related to the axis tic marks of a
+ * particular axis (i.e. one axis_tic_marks for x and one for y).
+ */
 typedef struct AXIS_TIC_MARKS {
+  /** The color of the axis tic marks, by default they are black (0,0,0)  */
   color * col;
+  /** The total number of tic marks to be displayed */
   int qty;
+  /** The width of the tic marks in pixels */
   int width;
+  /** The height of the tic marks in pixels */
   int height;
+  /** X or Y axis */
   axis this_axis;
 } axis_tic_marks;
 

@@ -4,7 +4,14 @@
  * @author Matthew C. Lindeman
  * @date   June 27, 2022
  * @bug    None known
- * @todo   Nothing
+ * @todo   simplify_tree has two cases that need to be fixed: identity
+ * (operator) variable, and cases that look like this where '+' represents any
+ * similar operator (i.e. plus &| minus, multiplication &| division etc.):
+ *    +                                       +
+ *   / \                                     / \
+ *  2   +  which should simplify to +  and  2   -  which should simplify to +
+ *     / \                         / \     / \                             / \
+ *    1   x                       3   x   1   x                           1   x
  * @NOTE   Its worth mentioning that the advantage to using a token_stack as
  * opposed to a list is that with a list it is very difficult to properly index
  * things i.e. we use a stack. However, we need to perminently modify the
@@ -13,6 +20,7 @@
  * double pointers.  Since we only have one stack, we will only ever index the
  * fist element of the double pointer).
  */
+#define _POSIX_C_SOURCE 200809L
 #include"include/parser.h"
 
 /**
@@ -62,6 +70,161 @@ double evaluate_tree(ast * abstree, double x) {
           token_type_to_string(abstree->value->type));
       exit(1);
   }
+}
+
+// ast * derivative_of(ast * abstree) {
+//   double r1 = 0.0;
+//   double r2 = 0.0;
+//   char * char_r1 = calloc(9 + 3, sizeof(char));
+//   char * char_r2 = calloc(9 + 3, sizeof(char));
+//   ast * ast1 = NULL;
+//   ast * ast2 = NULL;
+// 
+//   if(abstree->value->type == TOKEN_NUMBER) {
+//     free_ast(abstree);
+//     return init_ast("0", TOKEN_NUMBER);
+//   }
+//   if(abstree->value->type == TOKEN_VAR) {
+//     free_ast(abstree);
+//     return init_ast("1", TOKEN_NUMBER);
+//   }
+//   if(abstree->value->type == TOKEN_MULT &&
+//       subtree_all_numbers(abstree->children[0]) &&
+//       subtree_all_numbers(abstree->children[1])) {
+//   }
+//   if(abstree->value->type == TOKEN_POWER &&
+//       subtree_all_numbers(abstree->children[0]) &&
+//       !subtree_all_numbers(abstree->children[1])) {
+//     r1 = evaluate_tree(abstree->children[1], 0);
+//     r2 = r1 - 1;
+//     sprintf(char_r1, "%.8f", r1);
+//     sprintf(char_r2, "%.8f", r2);
+//     ast1 = binary_tree(init_ast("*", TOKEN_POWER),
+//                        init_ast(abstree->children[0]->value->t_literal, TOKEN_VAR),
+//                        init_ast(char_r1, TOKEN_NUMBER));
+//     ast2 = init_ast(char_r2, TOKEN_NUMBER);
+//     free(char_r1);
+//     free(char_r2);
+//     free_ast(abstree);
+//     return binary_tree(init_ast("^", TOKEN_POWER), ast1, ast2);
+// 
+//   }
+// }
+
+ast * derivative_of(ast * abstree) {
+  ast * ast1 = NULL;
+  char * result = calloc(9 + 3, sizeof(char));
+  double r1 = 0.0;
+  switch(abstree->value->type) {
+    case TOKEN_PLUS:
+      return binary_tree(init_ast("+", TOKEN_PLUS),
+                         derivative_of(abstree->children[0]),
+                         derivative_of(abstree->children[1]));
+    case TOKEN_MINUS:
+      return binary_tree(init_ast("-", TOKEN_MINUS),
+                         derivative_of(abstree->children[0]),
+                         derivative_of(abstree->children[1]));
+    case TOKEN_POWER:
+      if(subtree_all_numbers(abstree->children[0]) &&
+         !subtree_all_numbers(abstree->children[1])) {
+        abstree->children[1] = simplify_tree(abstree->children[1]);
+        strncpy(result,
+                abstree->children[1]->value->t_literal,
+                strnlen(abstree->children[1]->value->t_literal, MAX_TOK_LEN) + 1);
+        r1 = atof(result);
+        r1--;
+        sprintf(result, "%.8f", r1);
+        ast1 = init_ast(result, TOKEN_NUMBER);
+        return binary_tree(init_ast("*", TOKEN_MULT),
+                           abstree->children[1],
+                           binary_tree(init_ast("^", TOKEN_POWER),
+                                       abstree->children[0],
+                                       ast1));
+      }
+      break;
+    case TOKEN_MULT:
+      if(!subtree_all_numbers(abstree->children[0]) &&
+          subtree_all_numbers(abstree->children[1]))
+        return binary_tree(init_ast("*", TOKEN_MULT),
+                           abstree->children[0],
+                           derivative_of(abstree->children[1]));
+      if(subtree_all_numbers(abstree->children[0]) &&
+          !subtree_all_numbers(abstree->children[1]))
+        return binary_tree(init_ast("*", TOKEN_MULT),
+                           abstree->children[1],
+                           derivative_of(abstree->children[0]));
+      if(subtree_all_numbers(abstree->children[0]) &&
+          subtree_all_numbers(abstree->children[1]))
+        return binary_tree(init_ast("*", TOKEN_MULT),
+                           abstree->children[0],
+                           derivative_of(abstree->children[1]));
+      return init_ast("0", TOKEN_NUMBER);
+    case TOKEN_NUMBER:
+      return init_ast("0", TOKEN_NUMBER);
+    case TOKEN_VAR:
+      return init_ast("1", TOKEN_NUMBER);
+    default:
+        fprintf(stderr, "[DER1]: Unrecognized token: `%s`\nExiting\n",
+            abstree->value->t_literal);
+        exit(1);
+  }
+  return NULL;
+}
+
+/**
+ * This function takes a tree and simplifies it. For example, performing all
+ * operations to simplify numbers (double) and remove identity branches i.e.
+ *   +             *            /            +
+ *  / \ => 2 and  / \ => 2 and / \ => 2 and / \ => 3
+ * 2   0         2   1        2   1        2   1
+ * but of course done recursively such that if a subbranch is an operator over
+ * only numbers/has identity subbranch then it will simplify as well.
+ * @param -
+ * @return
+ */
+ast * simplify_tree(ast * abstree) {
+  char * result = calloc(9 + 3, sizeof(char));
+  if(!subtree_all_numbers(abstree)) {
+    sprintf(result, "%.8f", evaluate_tree(abstree, 0));
+    abstree = NULL;
+    abstree = init_ast(result, TOKEN_NUMBER);
+    free(result);
+    return abstree;
+  }
+  for(int i = 0; i < abstree->no_children; i++) {
+    if(!subtree_all_numbers(abstree->children[i])) {
+      abstree->children[i] = simplify_tree(abstree->children[i]);
+    } else if (abstree->children[i] != TOKEN_VAR) {
+      abstree->children[i] = simplify_tree(abstree->children[i]);
+    }
+  }
+  free(result);
+  return abstree;
+}
+
+/**
+ * This function verifies if a given tree have only numbers as leaf nodes.
+ * Unfortunately the function is a little counter-intuitive in that it returns 0
+ * if there are only numbers as leaf nodes and 1 if not.
+ * @param abstree - the ast to verify
+ * @return      1 - there exists a variable among the lead nodes of the tree
+ *              0 - there exists no variable amoung the leaf nodes of the tree
+ */
+int subtree_all_numbers(ast * abstree) {
+  int var_child_flag = 0;
+  if(abstree->value->type == TOKEN_VAR)
+    return 1;
+  if(abstree->value->type == TOKEN_NUMBER)
+    return 0;
+  for (int i = 0; i < abstree->no_children; i++) {
+    if(abstree->children[i]->value->type == TOKEN_VAR)
+      return 1;
+    else if(abstree->children[i]->value->type != TOKEN_NUMBER)
+      var_child_flag = subtree_all_numbers(abstree->children[i]);
+    if(var_child_flag)
+      return 1;
+  }
+  return 0;
 }
 
 /**
@@ -225,4 +388,14 @@ ast * unary_tree(ast * parent, ast * child) {
   parent->children[0] = child;
   parent->no_children = 1;
   return parent;
-} 
+}
+
+void decrement_number_ast(ast * abstree) {
+  char * result = calloc(9 + 3, sizeof(char));
+  double r1 = 0.0;
+  r1 = abstree->numeric_value - 1;
+  sprintf(result, "%.8f", r1);
+  free_ast(abstree);
+  abstree = NULL;
+  abstree = init_ast(result, TOKEN_NUMBER);
+}

@@ -12,8 +12,13 @@
 #include "token_type.h"
 #include "../../../main/include/constants.h"
 
+/**
+ * This structure is used to represent a token.
+ */
 typedef struct TOKEN_T {
+  /** The literal string of the token */
   char * t_literal;
+  /** The type of the token */
   token_type type;
 } token;
 

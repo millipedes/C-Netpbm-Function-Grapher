@@ -83,3 +83,16 @@ void free_ast(ast * abstree) {
     free(abstree);
   }
 }
+
+void ast_print_expression(ast * abstree) {
+  if(abstree->no_children == 0)
+    printf("%s ", abstree->value->t_literal);
+  else if(abstree->no_children == 1) {
+    ast_print_expression(abstree->children[0]);
+    printf("%s ", abstree->value->t_literal);
+  } else if(abstree->no_children == 2) {
+    ast_print_expression(abstree->children[0]);
+    printf("%s ", abstree->value->t_literal);
+    ast_print_expression(abstree->children[1]);
+  }
+}

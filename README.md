@@ -81,6 +81,16 @@ the immediate list of features to be implemented.
 
 An example input file is as follows with comments. Note that comments cannot be
 in the file when sent into the utility.
+
+One line is used to define each parameter to the given output file and always
+needs to be prefaced with `FILE_NAME` followed with a space by the output file
+name.  This file will need to be terminated with an `END`. Within this block
+
+
+In the input file, there are two types of parameters, blocks (i.e. a name that
+defines a block ended with `END`, for example `FUNC` terminated by `END`) and
+single line assignments (just one line). The following shows custom parameters
+for all acceped inputs 
 ```
   FILE_NAME :: test.ppm  // This line specifies the file name
     X_MIN   :: -10       // This line specifies the minimum x value that the

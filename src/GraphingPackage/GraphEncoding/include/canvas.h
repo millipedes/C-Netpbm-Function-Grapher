@@ -12,9 +12,16 @@
 #include "../../../main/include/constants.h"
 #include "pixel.h"
 
+/**
+ * This structure is representative of the canvas that will be written to an
+ * output netpbm file.
+ */
 typedef struct CANVAS_T {
+  /** The pixels of the canvas */
   pixel *** pixel_instance;
+  /** The height of the canvas in pixels */
   int height;
+  /** The width of the canvas in pixels */
   int width;
 } canvas;
 
